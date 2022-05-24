@@ -1,0 +1,26 @@
+<div style="margin-top: 80px;">
+    <div class="container">
+        <div class="hobbyDivContainer" *ngFor="let hobby of hobbys">
+            <!-- <mat-grid-list class="mat-grid-list" cols="2" rowHeight="3.5:1">-->
+            <!-- Cards with media area -->
+            <!--  <mat-grid-tile class="mat-grid-tile" *ngFor="let hobby of hobbys">-->
+            <mat-card class="hobbyCard">
+                <mat-card-title-group>
+                    <mat-card-title>{{hobby.nombre}}</mat-card-title>
+                    <mat-card-subtitle>Inicio: {{hobby.fechaInicioHobby}}</mat-card-subtitle>
+                </mat-card-title-group>
+                <img mat-card-image src="https://cdn.discordapp.com/attachments/828596336223060018/978628128513597440/images.jpg">
+                <mat-card-content>
+                    {{hobby.descripcion}}
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary">VIEW</button>
+                    <button mat-stroked-button color="primary">EDIT</button>
+                    <button mat-raised-button color="warn">DELETE</button>
+                </mat-card-actions>
+            </mat-card>
+            <!-- </mat-grid-tile> -->
+            <!-- </mat-grid-list> -->
+        </div>
+    </div>
+</div>

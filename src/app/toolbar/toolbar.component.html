@@ -1,0 +1,7 @@
+<mat-toolbar color="primary" class="app-header">
+    <div>HobbysAPP</div>
+    <div class="nav-tool-items">
+        <button *ngIf="localStorage.length>0" mat-raised-button color="accent" routerLink="login" routerLinkActive="active" (click)="logOut()">Log Out</button>
+        <button id="registerButton" mat-raised-button routerLink="register" routerLinkActive="active">Register</button>
+    </div>
+</mat-toolbar>
