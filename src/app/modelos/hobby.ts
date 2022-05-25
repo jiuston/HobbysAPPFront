@@ -3,5 +3,5 @@ export class Hobby{
     nombre: string='';
     descripcion: string = '';
     fechaInicioHobby: string= '';
-    imagenURL: string='';
+    imageURL: string='';
 }
