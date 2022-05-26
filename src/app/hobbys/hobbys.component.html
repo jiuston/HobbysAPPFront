@@ -10,11 +10,9 @@
                     <mat-card-subtitle>Inicio: {{hobby.fechaInicioHobby}}</mat-card-subtitle>
                 </mat-card-title-group>
                 <img mat-card-image src={{hobby.imageURL}}>
-                <mat-card-content>
-                    {{hobby.descripcion}}
-                </mat-card-content>
+
                 <mat-card-actions>
-                    <button mat-raised-button color="primary">VIEW</button>
+                    <button mat-raised-button color="primary" routerLink="{{hobby.id}}/view">VIEW</button>
                     <button mat-stroked-button color="primary">EDIT</button>
                     <button mat-raised-button color="warn">DELETE</button>
                 </mat-card-actions>

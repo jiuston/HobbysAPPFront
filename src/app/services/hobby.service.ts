@@ -8,12 +8,17 @@ import { Hobby } from '../modelos/hobby';
 })
 export class HobbyService {
 
-  basehobbysURL="https://personalhobbys-app.herokuapp.com/hobbys";
+  basehobbysURL = "https://personalhobbys-app.herokuapp.com/hobbys";
 
   constructor(private http: HttpClient) { }
 
-  getAllHobbys() : Observable<HttpResponse<any>>{
-    return this.http.get(this.basehobbysURL.concat("/all"), {observe: 'response'});
+  getAllHobbys(): Observable<HttpResponse<any>> {
+    return this.http.get(this.basehobbysURL.concat("/all"), { observe: 'response' });
   }
+
+  getHobby(id: string): Observable<HttpResponse<any>> {
+    return this.http.get(this.basehobbysURL.concat(`?id=${id}`), { observe: 'response' });
+  }
+
 
 }

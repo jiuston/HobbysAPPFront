@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { UserInputDTO } from '../modelos/UserInputDTO';
 import { UserService } from '../services/user.service';
 
@@ -19,7 +20,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginComponent implements OnInit {
 
-loginFormGroup : any;
+  loginFormGroup: any;
 
   matcher = new MyErrorStateMatcher();
 
@@ -34,21 +35,28 @@ loginFormGroup : any;
     })
   }
 
-  get email() {return this.loginFormGroup.get('email')}
+  get email() { return this.loginFormGroup.get('email') }
 
-  get password() {return this.loginFormGroup.get('password')}
+  get password() { return this.loginFormGroup.get('password') }
 
-  login(){
-    const user = {'email' : this.email.value, 'password' : this.password.value};
+  login() {
+    const user = { 'email': this.email.value, 'password': this.password.value };
     this.userService.login(user).subscribe(data => this.saveAndNavigate(data));
-}
+  }
 
-saveAndNavigate(data: any): void {  
-  this.user=data.body; 
-  localStorage.setItem('token', this.user!.token);
-  localStorage.setItem('isAdmin', this.user!.roles.includes('ADMIN') ? 'true' : 'false');
-  console.log(localStorage.getItem('isAdmin'));
-  this.router.navigate(['/hobbys']);
+  saveAndNavigate(data: any): void {
+    this.user = data.body;
+    localStorage.setItem('token', this.user!.token);
+    localStorage.setItem('isAdmin', this.user!.roles.includes('ADMIN') ? 'true' : 'false');
+    console.log(localStorage.getItem('isAdmin'));
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Login correcto',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    this.router.navigate(['/hobbys']);
   }
 }
 

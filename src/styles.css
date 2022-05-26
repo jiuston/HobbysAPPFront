@@ -5,6 +5,7 @@ body {
 
 body {
     margin: 0;
+    margin-top: 70px;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     min-height: 100vh;
     background: #5d6f74;
@@ -106,6 +107,15 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+
+}
+
+.detailContainer {
+    border: 3px black solid;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .hobbyDivContainer {
@@ -123,4 +133,16 @@ body {
     position: unset !important;
 }
 
-.mat-grid-tile {}
+.hobbyViewCard {
+    max-width: 500px;
+    margin: 20px;
+}
+
+.rightListCard {
+    max-width: 600px;
+    margin: 20px;
+}
+
+.backButton {
+    margin: 10px 10px 10px 20px !important;
+}
