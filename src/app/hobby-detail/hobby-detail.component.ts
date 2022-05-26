@@ -1,4 +1,4 @@
-import { Tarea } from './../modelos/tarea';
+import { SimpleTareaInputDTO } from '../modelos/simpleTareaInputDTO';
 import { HobbyService } from './../services/hobby.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -14,8 +14,8 @@ export class HobbyDetailComponent implements OnInit {
 
   id?: string;
   hobby: Hobby = new Hobby();
-  tareas: Tarea[] = [];
-  tareaSelected?: Tarea;
+  tareas: SimpleTareaInputDTO[] = [];
+  tareaSelected?: SimpleTareaInputDTO;
 
   constructor(private activatedRoute: ActivatedRoute, private tareaService: TareaService, private hobbyService: HobbyService) { }
 

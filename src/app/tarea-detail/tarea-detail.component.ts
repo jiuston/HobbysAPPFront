@@ -1,8 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Hobby } from '../modelos/hobby';
-import { Tarea } from '../modelos/tarea';
+import { ActivatedRoute } from '@angular/router';
+import { TareaInputDTO } from '../modelos/TareaInputDTO';
 import { TareaService } from '../services/tarea.service';
 
 @Component({
@@ -12,20 +10,21 @@ import { TareaService } from '../services/tarea.service';
 })
 export class TareaDetailComponent implements OnInit {
 
-  hobbyID?: string;
-  tarea?: Tarea;
+  hobbyID: string='';
+  tarea: TareaInputDTO= new TareaInputDTO();
   tareaID?: string;
 
   constructor(private tareaService: TareaService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.hobbyID!=localStorage.getItem('hobbyID');
     this.tareaID = this.activatedRoute.snapshot.paramMap.get('id')!;
     this.tareaService.getTarea(this.tareaID).subscribe(data => this.setParams(data));
   }
 
   setParams(data: any) {
     this.tarea = data.body;
-    this.hobbyID = this.tarea?.hobbyID;
+    this.hobbyID=this.tarea.hobbyID;
   }
 
 }

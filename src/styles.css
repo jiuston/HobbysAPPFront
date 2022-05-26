@@ -107,7 +107,6 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-
 }
 
 .detailContainer {
@@ -140,6 +139,11 @@ body {
 
 .rightListCard {
     max-width: 600px;
+    margin: 20px;
+}
+
+.rightListTabs {
+    width: 600px;
     margin: 20px;
 }
 
