@@ -151,7 +151,13 @@ body {
 .rightListCard {
     max-width: 600px;
     margin: 20px;
+    height: fit-content;
+}
 
+.fabButton {
+    position: fixed;
+    right: 1em;
+    bottom: 1em;
 }
 
 .rightListTabs {

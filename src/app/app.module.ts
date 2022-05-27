@@ -15,6 +15,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { HobbyDetailComponent } from './hobby-detail/hobby-detail.component';
 import { TareaDetailComponent } from './tarea-detail/tarea-detail.component';
+import { TareasComponent } from './tareas/tareas.component';
+import { GastosComponent } from './gastos/gastos.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { TareaDetailComponent } from './tarea-detail/tarea-detail.component';
     HobbysComponent,
     ToolbarComponent,
     HobbyDetailComponent,
-    TareaDetailComponent
+    TareaDetailComponent,
+    TareasComponent,
+    GastosComponent
   ],
   imports: [
     BrowserModule,
