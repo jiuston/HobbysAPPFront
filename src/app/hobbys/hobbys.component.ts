@@ -11,10 +11,14 @@ export class HobbysComponent implements OnInit {
 
   hobbys: Hobby[] = [];
 
-  constructor(private hobbyService : HobbyService) { }
+  constructor(private hobbyService: HobbyService) { }
 
   ngOnInit(): void {
-    this.hobbyService.getAllHobbys().subscribe(data => this.hobbys=data.body);
+    this.hobbyService.getAllHobbys().subscribe(data => this.hobbys = data.body);
+  }
+
+  openIMG(url: string) {
+    window.open(url);
   }
 
 }

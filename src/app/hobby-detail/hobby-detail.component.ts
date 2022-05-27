@@ -25,4 +25,8 @@ export class HobbyDetailComponent implements OnInit {
     this.tareaService.getTareasByHobbyId(this.id).subscribe(data => this.tareas = data.body);
   }
 
+  openIMG(url: string) {
+    window.open(url);
+  }
+
 }

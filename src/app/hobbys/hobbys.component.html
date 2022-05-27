@@ -5,15 +5,14 @@
             <!-- Cards with media area -->
             <!--  <mat-grid-tile class="mat-grid-tile" *ngFor="let hobby of hobbys">-->
             <mat-card class="hobbyCard">
-                <mat-card-title-group>
+                <mat-card-title-group style="cursor: pointer;" routerLink="{{hobby.id}}/view">
                     <mat-card-title>{{hobby.nombre}}</mat-card-title>
                     <mat-card-subtitle>Inicio: {{hobby.fechaInicioHobby}}</mat-card-subtitle>
                 </mat-card-title-group>
-                <img mat-card-image src={{hobby.imageURL}}>
+                <img mat-card-image src={{hobby.imageURL}} style="cursor: pointer;" (click)=openIMG(hobby.imageURL)>
 
-                <mat-card-actions>
-                    <button mat-raised-button color="primary" routerLink="{{hobby.id}}/view">VIEW</button>
-                    <button mat-stroked-button color="primary">EDIT</button>
+                <mat-card-actions class="hobbyDetailContainer">
+                    <button mat-raised-button color="primary">EDIT</button>
                     <button mat-raised-button color="warn">DELETE</button>
                 </mat-card-actions>
             </mat-card>

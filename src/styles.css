@@ -111,10 +111,14 @@ body {
 
 .detailContainer {
     border: 3px black solid;
-    display: flex;
+
+}
+
+.hobbyDetailContainer {
+    display: flex !important;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-around !important;
 }
 
 .hobbyDivContainer {
@@ -133,20 +137,37 @@ body {
 }
 
 .hobbyViewCard {
-    max-width: 500px;
+    max-width: 450px;
     margin: 20px;
+    height: max-content;
+}
+
+.GastoViewCard {
+    margin: 20px;
+    height: max-content;
+    max-width: 900px;
 }
 
 .rightListCard {
     max-width: 600px;
     margin: 20px;
+
 }
 
 .rightListTabs {
-    width: 600px;
+    width: 900px;
     margin: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    min-height: 200px;
+    max-height: fit-content;
 }
 
 .backButton {
     margin: 10px 10px 10px 20px !important;
+}
+
+.imagenes {
+    display: inline-flex;
+
 }
