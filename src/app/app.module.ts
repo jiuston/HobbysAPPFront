@@ -1,3 +1,4 @@
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -17,6 +18,8 @@ import { HobbyDetailComponent } from './hobby-detail/hobby-detail.component';
 import { TareaDetailComponent } from './tarea-detail/tarea-detail.component';
 import { TareasComponent } from './tareas/tareas.component';
 import { GastosComponent } from './gastos/gastos.component';
+import { HobbyDialogOverviewComponent } from './hobby-dialog-overview/hobby-dialog-overview.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,9 @@ import { GastosComponent } from './gastos/gastos.component';
     HobbyDetailComponent,
     TareaDetailComponent,
     TareasComponent,
-    GastosComponent
+    GastosComponent,
+    HobbyDialogOverviewComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,

@@ -29,6 +29,15 @@ export class InterceptorService implements HttpInterceptor {
           title: 'Oops...',
           text: 'Login incorrecto',
         })
+      } else if (error.status === 404) {
+        Swal.fire({
+          position: 'bottom-end',
+          icon: 'info',
+          title: 'No hay más datos disponibles',
+          showConfirmButton: false,
+          timer: 1000
+        })
+        console.log(error)
       }
       return of();
     })

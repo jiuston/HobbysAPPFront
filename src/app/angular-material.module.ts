@@ -1,3 +1,4 @@
+import { MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -41,6 +42,7 @@ const materialModules = [
   MatCheckboxModule,
   MatChipsModule,
   MatDividerModule,
+  MatDialogModule,
   MatExpansionModule,
   MatIconModule,
   MatInputModule,

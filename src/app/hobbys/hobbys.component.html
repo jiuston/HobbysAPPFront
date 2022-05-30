@@ -1,10 +1,10 @@
 <div>
     <div flex>
         <div class="fabButton">
-    <button mat-fab>
-        <mat-icon>add</mat-icon>
-    </button>
-    </div>
+            <button mat-fab (click)="openDialog()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
     </div>
     <div class="container">
         <div class="hobbyDivContainer" *ngFor="let hobby of hobbys">
