@@ -20,8 +20,8 @@
         <mat-label>Imagen</mat-label>
         <file-upload requiredFileType="image/jpeg, image/png"></file-upload>
         <div class="hobbyDetailContainer">
-        <button type="reset" mat-raised-button color="accent" (click)="onNoClick()">Cancelar</button>
         <button type="submit" mat-raised-button color="primary" [disabled]="!newHobbyForm.valid">Crear</button>
+        <button type="reset" mat-raised-button color="warn" (click)="onNoClick()">Cancelar</button>
         </div>
     </form>
         </mat-card>

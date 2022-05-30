@@ -35,7 +35,7 @@ export class InterceptorService implements HttpInterceptor {
           icon: 'info',
           title: 'No hay más datos disponibles',
           showConfirmButton: false,
-          timer: 1000
+          timer: 1250
         })
         console.log(error)
       }
