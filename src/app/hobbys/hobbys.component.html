@@ -20,7 +20,7 @@
 
                 <mat-card-actions class="hobbyDetailContainer">
                     <button mat-raised-button color="primary">EDIT</button>
-                    <button mat-raised-button color="warn">DELETE</button>
+                    <button mat-raised-button color="warn" (click)="delete(hobby.id, hobby.nombre)">DELETE</button>
                 </mat-card-actions>
             </mat-card>
             <!-- </mat-grid-tile> -->

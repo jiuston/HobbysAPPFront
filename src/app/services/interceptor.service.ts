@@ -1,7 +1,7 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, Observable, of, throwError } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -22,25 +22,55 @@ export class InterceptorService implements HttpInterceptor {
       });
     }
 
-    return next.handle(request).pipe(catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Login incorrecto',
-        })
-      } else if (error.status === 404) {
-        Swal.fire({
-          position: 'bottom-end',
-          icon: 'info',
-          title: 'No hay más datos disponibles',
-          showConfirmButton: false,
-          timer: 1250
-        })
-        console.log(error)
-      }
-      return of();
-    })
+    if(req.method==="GET"){
+      return next.handle(request).pipe(catchError((err: HttpErrorResponse) => {
+        if(err.status===404){
+          this.swal404(err);
+        }
+         return of();
+      })
     );
+    }else if(req.method==="DELETE" || req.method==="POST" || req.method==="PUT"){
+      return next.handle(request)
+      .pipe( map((event: HttpEvent<any>)=>{
+        if(event instanceof HttpResponse){
+            if(event.status===200){
+              Swal.fire({
+                icon: 'success',
+                title: 'Perfecto!',
+                text: event.body,
+              });
+            }
+        }else if(event instanceof HttpErrorResponse){
+          
+           if (event.status === 404) {
+            this.swal404(event);
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: event.message,
+            });
+          }
+        }else{
+          console.log("No es de ningun tipo");
+          console.log(event)
+        }
+        return event;
+      }));
+    }else{
+      return next.handle(request)
+    }
   }
+
+  swal404(error: HttpErrorResponse){
+    Swal.fire({
+      position: 'center-end',
+      icon: 'info',
+      title: error.error,
+      showConfirmButton: false,
+      timer: 1750
+    });
+  }
+
 }

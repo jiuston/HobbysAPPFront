@@ -10,6 +10,7 @@ import { HobbyOutputDTO } from '../modelos/HobbyOutputDTO';
 export class HobbyService {
 
 
+
   basehobbysURL = "https://personalhobbys-app.herokuapp.com/hobbys";
 
   constructor(private http: HttpClient) { }
@@ -24,6 +25,10 @@ export class HobbyService {
 
   addHobby(formData: FormData): Observable<HttpResponse<any>> {
     return this.http.post(this.basehobbysURL.concat("/add"), formData, { observe: 'response' });
+  }
+
+  deleteHobbyByID(hobbyID: string) : Observable<HttpResponse<any>> {
+    return this.http.delete(this.basehobbysURL.concat(`/delete/${hobbyID}`), {observe:'response'});
   }
 
 

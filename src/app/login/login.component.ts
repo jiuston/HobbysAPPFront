@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
     this.user = data.body;
     localStorage.setItem('token', this.user!.token);
     localStorage.setItem('isAdmin', this.user!.roles.includes('ADMIN') ? 'true' : 'false');
-    console.log(localStorage.getItem('isAdmin'));
     Swal.fire({
       position: 'center',
       icon: 'success',

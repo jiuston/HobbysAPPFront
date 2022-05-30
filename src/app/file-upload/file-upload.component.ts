@@ -28,7 +28,6 @@ export class FileUploadComponent implements OnInit {
     if (event.target.files[0]) {
       FileUploadComponent.file = event.target.files[0];
       this.fileName = FileUploadComponent.file.name;
-      console.log(FileUploadComponent.file.type)
     }
     if (FileUploadComponent.file.type !== 'image/jpeg' && FileUploadComponent.file.type !== 'image/png') {
       this.fileName = '';

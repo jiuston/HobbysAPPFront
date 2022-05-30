@@ -35,10 +35,11 @@ export class HobbyDialogOverviewComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
   addHobby() {
     this.newHobby = this.newHobbyForm.value;
     Swal.fire({
-      title: '¿Crear Hobby?',
+      title: `¿Crear Hobby ${this.newHobby.nombre}?`,
       showDenyButton: true,
       confirmButtonText: 'Crear',
       denyButtonText: `Cancelar`,
@@ -51,17 +52,13 @@ export class HobbyDialogOverviewComponent implements OnInit {
         }
         this.formData.append('hobbyInputDTO', new Blob([JSON.stringify(this.newHobby)],
           { type: 'application/json' }));
-        this.hobbyService.addHobby(this.formData).subscribe(data => this.confirmPost(data));
+        this.hobbyService.addHobby(this.formData).subscribe();
       } else if (result.isDenied) {
         Swal.fire('Hobby no creado', '', 'info');
       }
       this.onNoClick();
     })
 
-  }
-  confirmPost(data: HttpResponse<any>): void {
-    if (data.status === 200)
-      Swal.fire('Saved!', '', 'success')
   }
 
 }

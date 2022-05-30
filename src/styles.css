@@ -8,7 +8,7 @@ body {
     margin-top: 70px;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     min-height: 100vh;
-    background: #5d6f74;
+    background: #849da3;
 }
 
 .app-header {
@@ -111,7 +111,6 @@ body {
 
 .detailContainer {
     border: 3px black solid;
-
 }
 
 .hobbyDetailContainer {
@@ -175,5 +174,4 @@ body {
 
 .imagenes {
     display: inline-flex;
-
 }

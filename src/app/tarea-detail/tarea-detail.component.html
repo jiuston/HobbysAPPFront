@@ -1,5 +1,5 @@
 <button mat-raised-button color="accent" routerLink="/hobbys/{{hobbyID}}/view" class="backButton">Volver</button>
-<div class="container">
+<div class="hobbyDetailContainer">
     <mat-card class="hobbyViewCard">
         <mat-card-title-group>
             <mat-card-title>{{tarea.titulo}}</mat-card-title>
@@ -13,34 +13,33 @@
             <button mat-raised-button color="warn">DELETE</button>
         </mat-card-actions>
     </mat-card>
-        <div class="rightListTabs">
-            <mat-tab-group mat-align-tabs="center" backgroundColor="primary" color="accent">
-                <mat-tab label="Comentarios">
-        
-                </mat-tab>
-                <mat-tab label="Gastos">
-                    <mat-card class="GastoViewCard" *ngFor="let gasto of gastos">
-                        <mat-card-header>
-                            <mat-card-title>{{gasto.concepto}}</mat-card-title>
-                            <mat-card-subtitle>{{gasto.cantidad}}€</mat-card-subtitle>
-                            <mat-card-subtitle>Fecha gasto: {{gasto.fechaGasto}}</mat-card-subtitle>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <p>
-                                {{gasto.comentario}}
-                            </p>
-                            <div *ngFor="let imagen of gasto.imagenesURL" class="imagenes">
-                                <img mat-sm-card-image src={{imagen}} style="cursor: pointer;" (click)="openIMG(imagen)">
-                            </div>
-        
-                        </mat-card-content>
-                        <mat-card-actions class="hobbyDetailContainer">
-                            <button mat-raised-button color="primary">EDIT</button>
-                            <button mat-raised-button color="warn">DELETE</button>
-                        </mat-card-actions>
-                    </mat-card>
-                </mat-tab>
-            </mat-tab-group>
-        </div>
-</div>
+    <div class="rightListTabs">
+        <mat-tab-group mat-align-tabs="center" backgroundColor="primary" color="accent">
+            <mat-tab label="Comentarios">
 
+            </mat-tab>
+            <mat-tab label="Gastos">
+                <mat-card class="GastoViewCard" *ngFor="let gasto of gastos">
+                    <mat-card-header>
+                        <mat-card-title>{{gasto.concepto}}</mat-card-title>
+                        <mat-card-subtitle>{{gasto.cantidad}}€</mat-card-subtitle>
+                        <mat-card-subtitle>Fecha gasto: {{gasto.fechaGasto}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>
+                            {{gasto.comentario}}
+                        </p>
+                        <div *ngFor="let imagen of gasto.imagenesURL" class="imagenes">
+                            <img mat-sm-card-image src={{imagen}} style="cursor: pointer;" (click)="openIMG(imagen)">
+                        </div>
+
+                    </mat-card-content>
+                    <mat-card-actions class="hobbyDetailContainer">
+                        <button mat-raised-button color="primary">EDIT</button>
+                        <button mat-raised-button color="warn">DELETE</button>
+                    </mat-card-actions>
+                </mat-card>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>
