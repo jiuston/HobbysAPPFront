@@ -22,48 +22,53 @@ export class InterceptorService implements HttpInterceptor {
       });
     }
 
-    if(req.method==="GET"){
+    if (req.method === "GET") {
       return next.handle(request).pipe(catchError((err: HttpErrorResponse) => {
-        if(err.status===404){
+        if (err.status === 404) {
           this.swal404(err);
         }
-         return of();
+        return of();
       })
-    );
-    }else if(req.method==="DELETE" || req.method==="POST" || req.method==="PUT"){
+      );
+    } else if (req.method === "DELETE" || req.method === "POST" || req.method === "PUT") {
       return next.handle(request)
-      .pipe( map((event: HttpEvent<any>)=>{
-        if(event instanceof HttpResponse){
-            if(event.status===200){
+        .pipe(map((event: HttpEvent<any>) => {
+          if (event instanceof HttpResponse) {
+            if (event.body instanceof Object) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Perfecto!',
+                text: 'Cambio realizado con éxito',
+                timer: 1500
+              });
+            } else {
               Swal.fire({
                 icon: 'success',
                 title: 'Perfecto!',
                 text: event.body,
+                timer: 1500
               });
             }
-        }else if(event instanceof HttpErrorResponse){
-          
-           if (event.status === 404) {
-            this.swal404(event);
-          }else{
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: event.message,
-            });
+          } else if (event instanceof HttpErrorResponse) {
+
+            if (event.status === 404) {
+              this.swal404(event);
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: event.message,
+              });
+            }
           }
-        }else{
-          console.log("No es de ningun tipo");
-          console.log(event)
-        }
-        return event;
-      }));
-    }else{
+          return event;
+        }));
+    } else {
       return next.handle(request)
     }
   }
 
-  swal404(error: HttpErrorResponse){
+  swal404(error: HttpErrorResponse) {
     Swal.fire({
       position: 'center-end',
       icon: 'info',

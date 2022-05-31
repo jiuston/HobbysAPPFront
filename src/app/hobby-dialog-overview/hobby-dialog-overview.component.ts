@@ -1,11 +1,13 @@
+import { Observable, of } from 'rxjs';
 import { FileUploadComponent } from './../file-upload/file-upload.component';
 import { HobbyService } from './../services/hobby.service';
 import { HobbyOutputDTO } from './../modelos/HobbyOutputDTO';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Component, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { HttpResponse } from '@angular/common/http';
+import { DialogData } from '../hobbys/hobbys.component';
 
 @Component({
   selector: 'app-hobby-dialog-overview',
@@ -15,34 +17,61 @@ import { HttpResponse } from '@angular/common/http';
 export class HobbyDialogOverviewComponent implements OnInit {
 
   newHobbyForm: any;
-  newHobby: HobbyOutputDTO = new HobbyOutputDTO();
+  newHobby?: HobbyOutputDTO;
   file?: File;
   formData?: FormData;
+  h1: string = '';
+  buttonText: string = '';
+  hobbyID?: string;
+  infoText: string = '';
+  checkBox: boolean = false;
+  hobbyName: string = '';
 
   constructor(public dialogRef: MatDialogRef<HobbyDialogOverviewComponent>,
-    private hobbyService: HobbyService) { }
+    private hobbyService: HobbyService, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 
   ngOnInit(): void {
+    this.clean();
+    this.newHobby = this.data.newHobby;
+    this.hobbyID = this.data.hobbyID;
+    this.hobbyName = this.newHobby.nombre;
+    if (this.hobbyID) {
+      this.h1 = "Editar el hobby " + this.newHobby.nombre + ":";
+      this.buttonText = 'Editar';
+      this.infoText = "Hobby no editado"
+    } else {
+      this.h1 = "Añadir nuevo hobby:";
+      this.buttonText = "Crear"
+      this.infoText = "Hobby no creado"
+    }
     this.newHobbyForm = new FormGroup({
-      nombre: new FormControl('', [Validators.required]),
-      descripcion: new FormControl(''),
+      nombre: new FormControl(this.newHobby.nombre, [Validators.required]),
+      descripcion: new FormControl(this.newHobby.descripcion)
     });
   }
 
   get nombre() { return this.newHobbyForm.get('nombre') }
   get descripcion() { return this.newHobbyForm.get('descripcion') }
 
-  onNoClick(): void {
+
+  closeDialogWithData(data: any): void {
+    this.dialogRef.close(data);
+  }
+
+  closeDialog() {
     this.dialogRef.close();
   }
 
   addHobby() {
     this.newHobby = this.newHobbyForm.value;
+    console.log(this.newHobby);
+    console.log(this.newHobbyForm.value);
+    console.log(this.checkBox);
     Swal.fire({
-      title: `¿Crear Hobby ${this.newHobby.nombre}?`,
+      title: `¿${this.buttonText} Hobby ${this.hobbyName}?`,
       showDenyButton: true,
-      confirmButtonText: 'Crear',
-      denyButtonText: `Cancelar`,
+      confirmButtonText: this.buttonText,
+      denyButtonText: `Cancelar`
     }).then((result) => {
       if (result.isConfirmed) {
         this.formData = new FormData();
@@ -52,13 +81,28 @@ export class HobbyDialogOverviewComponent implements OnInit {
         }
         this.formData.append('hobbyInputDTO', new Blob([JSON.stringify(this.newHobby)],
           { type: 'application/json' }));
-        this.hobbyService.addHobby(this.formData).subscribe();
+        if (this.hobbyID) {
+          this.hobbyService.editHobby(this.formData, this.hobbyID, this.checkBox).subscribe(data => this.closeDialogWithData(data));
+        } else {
+          this.hobbyService.addHobby(this.formData).subscribe(data => this.closeDialogWithData(data));
+        }
+        this.clean();
       } else if (result.isDenied) {
-        Swal.fire('Hobby no creado', '', 'info');
+        Swal.fire(this.infoText, '', 'info');
       }
-      this.onNoClick();
+
     })
 
   }
 
+  clean() {
+    FileUploadComponent.file = null;
+    this.hobbyID = undefined;
+    this.newHobby = undefined;
+  }
+
 }
+
+
+
+

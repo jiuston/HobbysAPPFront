@@ -20,7 +20,6 @@ export class TareaDetailComponent implements OnInit {
   constructor(private tareaService: TareaService, private gastoService: GastoService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.hobbyID != localStorage.getItem('hobbyID');
     this.tareaID = this.activatedRoute.snapshot.paramMap.get('id')!;
     this.tareaService.getTarea(this.tareaID).subscribe(data => this.setParams(data));
     this.gastoService.getGastosByTarea(this.tareaID).subscribe(data => this.gastos = data.body)

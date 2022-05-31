@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 
 export interface DialogData {
   newHobby: HobbyOutputDTO;
+  hobbyID: string;
 }
 
 @Component({
@@ -21,10 +22,16 @@ export class HobbysComponent implements OnInit {
 
   hobbys: Hobby[] = [];
   newHobby: HobbyOutputDTO = new HobbyOutputDTO();
+  hobbyID?: string;
 
   constructor(private hobbyService: HobbyService, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
+    this.loadHobbys();
+  }
+
+  loadHobbys() {
+    console.log('RECARGANDO HOBBYS!')
     this.hobbyService.getAllHobbys().subscribe(data => this.hobbys = data.body);
   }
 
@@ -33,34 +40,48 @@ export class HobbysComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(HobbyDialogOverviewComponent, { width: '500px', data: { newHobby: this.newHobby } });
+    const dialogRef = this.dialog.open(HobbyDialogOverviewComponent, { width: '500px', data: { newHobby: this.newHobby, hobbyID: this.hobbyID } });
     dialogRef.afterClosed().subscribe(result => {
-      this.newHobby = result;
+      this.procesarRespuesta(result);
+      this.newHobby = new HobbyOutputDTO();
+      this.hobbyID = undefined;
     });
   }
 
-  delete(hobbyID: string, hobbyName: string){
+  delete(index: number) {
+    let hobby = this.hobbys[index];
     Swal.fire({
-      title: 'Borrar el hobby ' + hobbyName,
+      title: 'Borrar el hobby ' + hobby.nombre,
       text: "Si se borra el hobby tambien se eliminarán las tareas asociadas.",
       icon: 'warning',
       showCancelButton: true,
+      cancelButtonText: 'Cancelar',
       confirmButtonColor: '#f44336',
       cancelButtonColor: '#673ab7',
       confirmButtonText: 'Sí, eliminar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.hobbyService.deleteHobbyByID(hobbyID).subscribe(data => this.procesarRespuesta(data));
+        this.hobbyService.deleteHobbyByID(hobby.id).subscribe(data => this.procesarRespuesta(data));
 
       }
     })
   }
 
   procesarRespuesta(data: HttpResponse<any>): void {
-    if(data.status===200){
-        this.router.navigateByUrl("/hobbys");
+    console.log('PROCESANDO RESPUESTA')
+    if (data && data.status === 200) {
+      this.loadHobbys();
     }
   }
+
+  editHobby(index: number) {
+    let hobby = this.hobbys[index];
+    this.newHobby.nombre = hobby.nombre;
+    this.newHobby.descripcion = hobby.descripcion;
+    this.hobbyID = hobby.id;
+    this.openDialog();
+  }
+
 }
 
 

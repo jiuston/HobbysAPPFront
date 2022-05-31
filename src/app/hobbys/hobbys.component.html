@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="container">
-        <div class="hobbyDivContainer" *ngFor="let hobby of hobbys">
+        <div class="hobbyDivContainer" *ngFor="let hobby of hobbys; let index=index">
             <!-- <mat-grid-list class="mat-grid-list" cols="2" rowHeight="3.5:1">-->
             <!-- Cards with media area -->
             <!--  <mat-grid-tile class="mat-grid-tile" *ngFor="let hobby of hobbys">-->
@@ -19,8 +19,8 @@
                 <img mat-card-image src={{hobby.imageURL}} style="cursor: pointer;" (click)=openIMG(hobby.imageURL)>
 
                 <mat-card-actions class="hobbyDetailContainer">
-                    <button mat-raised-button color="primary">EDIT</button>
-                    <button mat-raised-button color="warn" (click)="delete(hobby.id, hobby.nombre)">DELETE</button>
+                    <button mat-raised-button color="primary" (click)="editHobby(index)">EDITAR</button>
+                    <button mat-raised-button color="warn" (click)="delete(index)">ELIMINAR</button>
                 </mat-card-actions>
             </mat-card>
             <!-- </mat-grid-tile> -->

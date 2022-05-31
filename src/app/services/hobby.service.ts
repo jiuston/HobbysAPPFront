@@ -11,6 +11,7 @@ export class HobbyService {
 
 
 
+
   basehobbysURL = "https://personalhobbys-app.herokuapp.com/hobbys";
 
   constructor(private http: HttpClient) { }
@@ -27,8 +28,12 @@ export class HobbyService {
     return this.http.post(this.basehobbysURL.concat("/add"), formData, { observe: 'response' });
   }
 
-  deleteHobbyByID(hobbyID: string) : Observable<HttpResponse<any>> {
-    return this.http.delete(this.basehobbysURL.concat(`/delete/${hobbyID}`), {observe:'response'});
+  deleteHobbyByID(hobbyID: string): Observable<HttpResponse<any>> {
+    return this.http.delete(this.basehobbysURL.concat(`/delete/${hobbyID}`), { observe: 'response' });
+  }
+
+  editHobby(formData: FormData, hobbyID: string, deleteIMG: boolean): Observable<HttpResponse<any>> {
+    return this.http.put(this.basehobbysURL.concat(`/edit/${hobbyID}?deleteIMG=${deleteIMG}`), formData, { observe: 'response' });
   }
 
 
