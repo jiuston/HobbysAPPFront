@@ -64,11 +64,9 @@ export class HobbyDialogOverviewComponent implements OnInit {
 
   addHobby() {
     this.newHobby = this.newHobbyForm.value;
-    console.log(this.newHobby);
-    console.log(this.newHobbyForm.value);
-    console.log(this.checkBox);
     Swal.fire({
-      title: `¿${this.buttonText} Hobby ${this.hobbyName}?`,
+      title: `¿${this.buttonText} Hobby ${this.nombre.value}?`,
+      text: `Descripcion: ${this.descripcion.value}`,
       showDenyButton: true,
       confirmButtonText: this.buttonText,
       denyButtonText: `Cancelar`

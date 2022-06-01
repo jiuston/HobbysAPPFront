@@ -1,0 +1,30 @@
+<div mat-dialog-content>
+    <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+        <mat-card class="box">
+            <mat-card-header>
+                <mat-card-title>Añadir tarea nueva para el hobby seleccionado</mat-card-title>
+            </mat-card-header>
+            <form class="example-form" (submit)="addTarea()" [formGroup]="newTareaForm">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Titulo:</mat-label>
+                    <input matInput formControlName="titulo">
+                    <mat-error *ngIf="titulo.errors?.['required']">
+                    El titulo de la tarea <strong>no puede faltar o estar vacío</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Descripción</mat-label>
+                    <input matInput formControlName="descripcion">
+                    <mat-error *ngIf="descripcion.errors?.['required']">
+                        La descripcion de la tarea <strong> no puede faltar o estar vacía </strong>
+                    </mat-error>
+                </mat-form-field>
+                <div class="hobbyDetailContainer">
+                    <button type="submit" mat-raised-button color="primary"
+                        [disabled]="!newTareaForm.valid">Crear</button>
+                    <button type="reset" mat-raised-button color="warn" (click)="closeDialog()">Cancelar</button>
+                </div>
+            </form>
+        </mat-card>
+
+    </div>

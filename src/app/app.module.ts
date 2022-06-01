@@ -20,6 +20,7 @@ import { TareasComponent } from './tareas/tareas.component';
 import { GastosComponent } from './gastos/gastos.component';
 import { HobbyDialogOverviewComponent } from './hobby-dialog-overview/hobby-dialog-overview.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { TareaDialogOverviewComponent } from './tarea-dialog-overview/tarea-dialog-overview.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     TareasComponent,
     GastosComponent,
     HobbyDialogOverviewComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    TareaDialogOverviewComponent
   ],
   imports: [
     BrowserModule,

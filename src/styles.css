@@ -159,6 +159,10 @@ body {
     bottom: 1em;
 }
 
+.fabButtonTareas {
+    float: right;
+}
+
 .rightListTabs {
     width: 900px;
     margin: 20px;

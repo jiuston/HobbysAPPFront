@@ -31,7 +31,6 @@ export class HobbysComponent implements OnInit {
   }
 
   loadHobbys() {
-    console.log('RECARGANDO HOBBYS!')
     this.hobbyService.getAllHobbys().subscribe(data => this.hobbys = data.body);
   }
 
@@ -68,7 +67,6 @@ export class HobbysComponent implements OnInit {
   }
 
   procesarRespuesta(data: HttpResponse<any>): void {
-    console.log('PROCESANDO RESPUESTA')
     if (data && data.status === 200) {
       this.loadHobbys();
     }
