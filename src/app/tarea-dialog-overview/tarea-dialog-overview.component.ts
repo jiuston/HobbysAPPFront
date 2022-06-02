@@ -23,6 +23,7 @@ export class TareaDialogOverviewComponent implements OnInit {
   h1: string = '';
   title: string = '';
   buttonText: string = '';
+  infoDeniedText: string='';
   estado?: Estado;
   estados = Object.values(Estado);
 
@@ -36,11 +37,13 @@ export class TareaDialogOverviewComponent implements OnInit {
       this.h1 = `Editar la Tarea ${this.newTarea.titulo}`;
       this.title = `¿Editar esta tarea?`;
       this.buttonText = "EDITAR"
+      this.infoDeniedText='editada';
       this.estado = this.newTarea.estado!;
     } else {
       this.h1 = 'Añadir tarea nueva para el hobby seleccionado';
       this.title = `¿Añadir esta tarea al hobby seleccionado?`;
       this.buttonText = "CREAR"
+      this.infoDeniedText = 'creada';
     }
     this.newTareaForm = new FormGroup({
       titulo: new FormControl(this.newTarea.titulo, [Validators.required]),
@@ -61,13 +64,16 @@ export class TareaDialogOverviewComponent implements OnInit {
     this.newTarea = this.newTareaForm.value;
     if (this.estado === null) this.newTarea.estado = null;
     else this.newTarea.estado = this.estado;
-    console.log(this.estado)
     Swal.fire({
-      position: 'bottom',
+      position: 'center',
       title: this.title,
-      showDenyButton: true,
+      showCancelButton: true,
       confirmButtonText: this.buttonText,
-      denyButtonText: `CANCELAR`
+      cancelButtonText: `CANCELAR`,
+      customClass: { 
+        cancelButton : 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-warn',
+        confirmButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-primary'},
+      buttonsStyling: false
     }).then((result) => {
       if (result.isConfirmed) {
         if (this.data.tareaID) {
@@ -77,7 +83,13 @@ export class TareaDialogOverviewComponent implements OnInit {
         }
 
       } else {
-        Swal.fire('Tarea no creada', '', 'info');
+        Swal.fire({
+          title: `Tarea no ${this.infoDeniedText}`,
+          position: 'center',
+          icon: 'info',
+          timer: 1000,
+          showConfirmButton: false,          
+        })
       }
     })
   }

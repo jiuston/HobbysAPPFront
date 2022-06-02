@@ -8,7 +8,6 @@ body {
     margin-top: 70px;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     min-height: 100vh;
-
 }
 
 .app-header {
@@ -48,7 +47,6 @@ body {
     float: left;
     padding: 60px 50px 40px 50px;
     width: 100%;
-
     border-radius: 10px;
     transform: scale(1);
     -webkit-transform: scale(1);
@@ -120,15 +118,23 @@ body {
     justify-content: space-around !important;
 }
 
+.swal2-popup {
+    background-color: #262626 !important;
+    color: white !important;
+}
+
+.SwalButtons {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+}
+
 .hobbyDivContainer {
     width: 300px;
     padding: 16px;
-
 }
 
 .hobbyDivContainer>.mat-card {
     width: 250px;
-
 }
 
 .mat-grid-list {

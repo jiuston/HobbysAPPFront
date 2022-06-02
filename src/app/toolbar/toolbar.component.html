@@ -1,11 +1,11 @@
 <mat-toolbar color="primary" class="app-header">
     <div class="hobbyDetailContainer" style="width: 400px;">
-        <button mat-raised-button color="accent" *ngIf="localStorage.length>0" routerLink="hobbys" style="cursor: pointer;"><mat-icon>home</mat-icon> HobbysAPP</button>
+        <button mat-raised-button color="accent" *ngIf="localStorage.length>0" routerLink="hobbys" style="cursor: pointer;"><mat-icon>home</mat-icon></button>
         <button mat-raised-button color="accent" *ngIf="localStorage.length>0" routerLink="tareas" style="cursor: pointer;">Tareas</button>
         <button mat-raised-button color="accent" *ngIf="localStorage.length>0" routerLink="gastos" style="cursor: pointer;">Gastos</button>
     </div>
     <div class="nav-tool-items">
-        <button *ngIf="localStorage.length>0" mat-raised-button color="accent" routerLink="login" routerLinkActive="active" (click)="logOut()" ><mat-icon>exit_to_app</mat-icon> Log Out</button>
+        <button *ngIf="localStorage.length>0" mat-raised-button color="accent" routerLink="login" routerLinkActive="active" (click)="logOut()"><mat-icon>exit_to_app</mat-icon> Log Out</button>
         <button id="registerButton" mat-raised-button routerLink="register" routerLinkActive="active">Register</button>
     </div>
 </mat-toolbar>

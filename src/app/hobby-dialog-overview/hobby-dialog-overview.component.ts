@@ -67,9 +67,12 @@ export class HobbyDialogOverviewComponent implements OnInit {
     Swal.fire({
       title: `¿${this.buttonText} Hobby ${this.nombre.value}?`,
       text: `Descripcion: ${this.descripcion.value}`,
-      showDenyButton: true,
+      showCancelButton: true,
       confirmButtonText: this.buttonText,
-      denyButtonText: `Cancelar`
+      cancelButtonText: `Cancelar`,
+      customClass: { cancelButton : 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-primary',
+                      confirmButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-warn'},
+      buttonsStyling: false
     }).then((result) => {
       if (result.isConfirmed) {
         this.formData = new FormData();

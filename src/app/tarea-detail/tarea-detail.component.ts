@@ -34,8 +34,6 @@ export class TareaDetailComponent implements OnInit {
   setParams(data: any) {
     this.tarea = data.body;
     this.hobbyID = this.tarea.hobbyID;
-    console.log(data.body)
-    console.log(this.tarea);
   }
 
   openIMG(url: string) {
@@ -73,9 +71,12 @@ export class TareaDetailComponent implements OnInit {
       icon: 'warning',
       showCancelButton: true,
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#f44336',
-      cancelButtonColor: '#673ab7',
-      confirmButtonText: 'Sí, eliminar'
+      confirmButtonColor: 'warn',
+      focusCancel: true,
+      confirmButtonText: 'Sí, eliminar',
+      customClass: { cancelButton : 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-primary',
+                      confirmButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-warn'},
+      buttonsStyling: false
     }).then((result) => {
       if (result.isConfirmed) {
         this.tareaService.deleteTareaByID(this.tareaID!).subscribe(data => this.procesarRespuesta(data, 'DELETE'));

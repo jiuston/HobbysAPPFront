@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
   }
 
   saveAndNavigate(data: any): void {
+    if(data.status === 200){
     this.user = data.body;
     localStorage.setItem('token', this.user!.token);
     localStorage.setItem('isAdmin', this.user!.roles.includes('ADMIN') ? 'true' : 'false');
@@ -56,6 +57,15 @@ export class LoginComponent implements OnInit {
       timer: 1500
     })
     this.router.navigate(['/hobbys']);
+  }else{
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      title: data.body,
+      showConfirmButton: false,
+      timer: 1500
+    })
+  }
   }
 }
 

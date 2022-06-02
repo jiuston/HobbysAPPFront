@@ -55,9 +55,12 @@ export class HobbysComponent implements OnInit {
       icon: 'warning',
       showCancelButton: true,
       cancelButtonText: 'Cancelar',
-      confirmButtonColor: '#f44336',
-      cancelButtonColor: '#673ab7',
-      confirmButtonText: 'Sí, eliminar'
+      focusCancel: true,
+      confirmButtonText: 'Sí, eliminar',
+      buttonsStyling: false,
+      customClass: { cancelButton : 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-primary',
+                      confirmButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-warn'},
+
     }).then((result) => {
       if (result.isConfirmed) {
         this.hobbyService.deleteHobbyByID(hobby.id).subscribe(data => this.procesarRespuesta(data));
