@@ -1,11 +1,14 @@
+import { TareaOutputDTO } from './../modelos/TareaOutputDTO';
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { GastoInputDTO } from '../modelos/GastoInputDTO';
 import { TareaInputDTO } from '../modelos/TareaInputDTO';
 import { GastoService } from '../services/gasto.service';
 import { TareaService } from '../services/tarea.service';
+import { TareaDialogOverviewComponent } from '../tarea-dialog-overview/tarea-dialog-overview.component';
 
 @Component({
   selector: 'app-tarea-detail',
@@ -18,8 +21,9 @@ export class TareaDetailComponent implements OnInit {
   tarea: TareaInputDTO = new TareaInputDTO();
   tareaID?: string;
   gastos: GastoInputDTO[] = [];
+  editedTarea?: TareaOutputDTO;
 
-  constructor(private tareaService: TareaService, private router: Router, private gastoService: GastoService, private activatedRoute: ActivatedRoute) { }
+  constructor(private tareaService: TareaService, public dialog: MatDialog, private router: Router, private gastoService: GastoService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.tareaID = this.activatedRoute.snapshot.paramMap.get('id')!;
@@ -30,17 +34,37 @@ export class TareaDetailComponent implements OnInit {
   setParams(data: any) {
     this.tarea = data.body;
     this.hobbyID = this.tarea.hobbyID;
+    console.log(data.body)
+    console.log(this.tarea);
   }
 
   openIMG(url: string) {
     window.open(url);
   }
 
-  procesarRespuesta(data: HttpResponse<any>): void {
-    if (data && data.status === 200) {
+  procesarRespuesta(data: HttpResponse<any>, method: string): void {
+    if (data && data.status === 200 && method === 'DELETE') {
       this.router.navigateByUrl(`/hobbys/${this.hobbyID}/view`);
+    } else if (data && data.status === 200) {
+      this.tareaService.getTarea(this.tareaID!).subscribe(data => this.setParams(data));
     }
   }
+
+  editTarea() {
+    this.editedTarea = new TareaOutputDTO();
+    this.editedTarea.titulo = this.tarea.titulo;
+    this.editedTarea.descripcion = this.tarea.descripcion;
+    this.editedTarea.estado = this.tarea.estado;
+    this.openTareaDialog();
+  }
+
+  openTareaDialog() {
+    const dialogRef = this.dialog.open(TareaDialogOverviewComponent, { width: '500px', data: { hobbyID: this.hobbyID, tareaOutputDTO: this.editedTarea } });
+    dialogRef.afterClosed().subscribe(result => {
+      this.procesarRespuesta(result, 'PUT');
+    });
+  }
+
 
   delete() {
     Swal.fire({
@@ -54,7 +78,7 @@ export class TareaDetailComponent implements OnInit {
       confirmButtonText: 'Sí, eliminar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.tareaService.deleteTareaByID(this.tareaID!).subscribe(data => this.procesarRespuesta(data));
+        this.tareaService.deleteTareaByID(this.tareaID!).subscribe(data => this.procesarRespuesta(data, 'DELETE'));
       }
     })
   }

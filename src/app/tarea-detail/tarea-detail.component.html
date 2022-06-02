@@ -1,4 +1,4 @@
-<button mat-raised-button color="accent" routerLink="/hobbys/{{hobbyID}}/view" class="backButton">Volver</button>
+<button mat-raised-button color="primary" routerLink="/hobbys/{{hobbyID}}/view" class="backButton">Volver</button>
 <div class="hobbyDetailContainer">
     <mat-card class="hobbyViewCard">
         <mat-card-title-group>
@@ -9,12 +9,12 @@
             {{tarea.descripcion}}
         </mat-card-content>
         <mat-card-actions class="hobbyDetailContainer">
-            <button mat-raised-button color="primary">EDIT</button>
-            <button mat-raised-button color="warn" (click)="delete()">DELETE</button>
+            <button mat-raised-button color="primary" (click)="editTarea()">EDITAR</button>
+            <button mat-raised-button color="warn" (click)="delete()">ELIMINAR</button>
         </mat-card-actions>
     </mat-card>
     <div class="rightListTabs">
-        <mat-tab-group mat-align-tabs="center" backgroundColor="primary" color="accent">
+        <mat-tab-group  mat-align-tabs="center" backgroundColor="primary" color="accent">
             <mat-tab label="Comentarios">
 
             </mat-tab>
@@ -35,8 +35,8 @@
 
                     </mat-card-content>
                     <mat-card-actions class="hobbyDetailContainer">
-                        <button mat-raised-button color="primary">EDIT</button>
-                        <button mat-raised-button color="warn">DELETE</button>
+                        <button mat-raised-button color="primary">EDITAR</button>
+                        <button mat-raised-button color="warn">ELIMINAR</button>
                     </mat-card-actions>
                 </mat-card>
             </mat-tab>

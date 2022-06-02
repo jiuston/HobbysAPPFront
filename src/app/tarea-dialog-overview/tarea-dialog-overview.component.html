@@ -2,7 +2,7 @@
     <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
         <mat-card class="box">
             <mat-card-header>
-                <mat-card-title>Añadir tarea nueva para el hobby seleccionado</mat-card-title>
+                <mat-card-title>{{h1}}</mat-card-title>
             </mat-card-header>
             <form class="example-form" (submit)="addTarea()" [formGroup]="newTareaForm">
                 <mat-form-field class="example-full-width" appearance="fill">
@@ -18,6 +18,10 @@
                     <mat-error *ngIf="descripcion.errors?.['required']">
                         La descripcion de la tarea <strong> no puede faltar o estar vacía </strong>
                     </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Estado</mat-label>
+                    <input matInput formControlName="estado">
                 </mat-form-field>
                 <div class="hobbyDetailContainer">
                     <button type="submit" mat-raised-button color="primary"

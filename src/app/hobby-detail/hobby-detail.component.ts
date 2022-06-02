@@ -1,3 +1,4 @@
+import { TareaOutputDTO } from './../modelos/TareaOutputDTO';
 import { SimpleTareaInputDTO } from '../modelos/simpleTareaInputDTO';
 import { HobbyService } from './../services/hobby.service';
 import { Component, OnInit } from '@angular/core';
@@ -13,6 +14,7 @@ import { TareaDialogOverviewComponent } from '../tarea-dialog-overview/tarea-dia
 
 export interface TareaDialogData {
   hobbyID: string;
+  tareaOutputDTO: TareaOutputDTO;
 }
 
 @Component({
@@ -46,7 +48,7 @@ export class HobbyDetailComponent implements OnInit {
   }
 
   openTareaDialog() {
-    const dialogRef = this.dialog.open(TareaDialogOverviewComponent, { width: '500px', data: { hobbyID: this.id } });
+    const dialogRef = this.dialog.open(TareaDialogOverviewComponent, { width: '500px', data: { hobbyID: this.id, tareaOutputDTO: new TareaOutputDTO() } });
     dialogRef.afterClosed().subscribe(result => {
       this.procesarRespuesta(result);
     });
