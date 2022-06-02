@@ -19,14 +19,18 @@
                         La descripcion de la tarea <strong> no puede faltar o estar vacía </strong>
                     </mat-error>
                 </mat-form-field>
-                <mat-form-field class="example-full-width" appearance="fill">
+                <mat-form-field appearance="fill">
                     <mat-label>Estado</mat-label>
-                    <input matInput formControlName="estado">
+                    <mat-select [(ngModel)]="estado" name="estado" [ngModelOptions]="{standalone: true}">
+                        <mat-option *ngFor="let status of estados" [value]="status">
+                            {{status}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
                 <div class="hobbyDetailContainer">
                     <button type="submit" mat-raised-button color="primary"
-                        [disabled]="!newTareaForm.valid">Crear</button>
-                    <button type="reset" mat-raised-button color="warn" (click)="closeDialog()">Cancelar</button>
+                        [disabled]="!newTareaForm.valid">{{buttonText}}</button>
+                    <button type="reset" mat-raised-button color="warn" (click)="closeDialog()">CANCELAR</button>
                 </div>
             </form>
         </mat-card>

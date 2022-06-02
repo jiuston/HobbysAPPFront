@@ -59,7 +59,7 @@ export class TareaDetailComponent implements OnInit {
   }
 
   openTareaDialog() {
-    const dialogRef = this.dialog.open(TareaDialogOverviewComponent, { width: '500px', data: { hobbyID: this.hobbyID, tareaOutputDTO: this.editedTarea } });
+    const dialogRef = this.dialog.open(TareaDialogOverviewComponent, { width: '500px', data: { hobbyID: this.hobbyID, tareaOutputDTO: this.editedTarea, tareaID: this.tareaID } });
     dialogRef.afterClosed().subscribe(result => {
       this.procesarRespuesta(result, 'PUT');
     });

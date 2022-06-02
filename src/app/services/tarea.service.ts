@@ -7,9 +7,6 @@ import { TareaOutputDTO } from '../modelos/TareaOutputDTO';
   providedIn: 'root'
 })
 export class TareaService {
-
-
-
   baseTareaURL = "https://personalhobbys-app.herokuapp.com/tareas"
 
   constructor(private http: HttpClient) { }
@@ -29,6 +26,10 @@ export class TareaService {
 
   deleteTareaByID(id: string): Observable<HttpResponse<any>> {
     return this.http.delete(this.baseTareaURL.concat(`/delete?tareaID=${id}`), { observe: 'response' });
+  }
+
+  editTarea(newTarea: TareaOutputDTO, tareaID: string): Observable<HttpResponse<any>> {
+    return this.http.put(this.baseTareaURL.concat(`/edit/${tareaID}`), newTarea, { observe: 'response' });
   }
 
 }

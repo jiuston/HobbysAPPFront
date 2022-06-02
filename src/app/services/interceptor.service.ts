@@ -39,14 +39,14 @@ export class InterceptorService implements HttpInterceptor {
                 icon: 'success',
                 title: 'Perfecto!',
                 text: 'Cambio realizado con éxito',
-                timer: 1500
+                timer: 1250
               });
             } else {
               Swal.fire({
                 icon: 'success',
                 title: 'Perfecto!',
                 text: event.body,
-                timer: 1500
+                timer: 1250
               });
             }
           } else if (event instanceof HttpErrorResponse) {
@@ -74,7 +74,7 @@ export class InterceptorService implements HttpInterceptor {
       icon: 'info',
       title: error.error,
       showConfirmButton: false,
-      timer: 1750
+      timer: 1250
     });
   }
 

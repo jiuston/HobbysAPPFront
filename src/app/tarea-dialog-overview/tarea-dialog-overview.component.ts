@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs';
+import { Estado } from './../modelos/estados';
 import { TareaOutputDTO } from './../modelos/TareaOutputDTO';
 import { TareaDialogData } from './../hobby-detail/hobby-detail.component';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -20,6 +22,9 @@ export class TareaDialogOverviewComponent implements OnInit {
   newTarea: TareaOutputDTO = new TareaOutputDTO();
   h1: string = '';
   title: string = '';
+  buttonText: string = '';
+  estado?: Estado;
+  estados = Object.values(Estado);
 
   constructor(public dialogRef: MatDialogRef<TareaDialogOverviewComponent>,
     private tareaService: TareaService, @Inject(MAT_DIALOG_DATA) public data: TareaDialogData) { }
@@ -30,20 +35,21 @@ export class TareaDialogOverviewComponent implements OnInit {
     if (this.newTarea.titulo) {
       this.h1 = `Editar la Tarea ${this.newTarea.titulo}`;
       this.title = `¿Editar esta tarea?`;
+      this.buttonText = "EDITAR"
+      this.estado = this.newTarea.estado!;
     } else {
       this.h1 = 'Añadir tarea nueva para el hobby seleccionado';
       this.title = `¿Añadir esta tarea al hobby seleccionado?`;
+      this.buttonText = "CREAR"
     }
     this.newTareaForm = new FormGroup({
       titulo: new FormControl(this.newTarea.titulo, [Validators.required]),
       descripcion: new FormControl(this.newTarea.descripcion, Validators.required),
-      estado: new FormControl(this.newTarea.estado)
     });
   }
 
   get titulo() { return this.newTareaForm.get('titulo') }
   get descripcion() { return this.newTareaForm.get('descripcion') }
-  get estado() { return this.newTareaForm.get('estado') }
 
   closeDialog() {
     this.dialogRef.close();
@@ -53,15 +59,23 @@ export class TareaDialogOverviewComponent implements OnInit {
 
   addTarea() {
     this.newTarea = this.newTareaForm.value;
+    if (this.estado === null) this.newTarea.estado = null;
+    else this.newTarea.estado = this.estado;
+    console.log(this.estado)
     Swal.fire({
       position: 'bottom',
       title: this.title,
       showDenyButton: true,
-      confirmButtonText: 'Crear',
-      denyButtonText: `Cancelar`
+      confirmButtonText: this.buttonText,
+      denyButtonText: `CANCELAR`
     }).then((result) => {
       if (result.isConfirmed) {
-        this.tareaService.addTareaToHobby(this.newTarea, this.hobbyID!).subscribe(data => this.closeDialogWithData(data));
+        if (this.data.tareaID) {
+          this.tareaService.editTarea(this.newTarea, this.data.tareaID).subscribe(data => this.closeDialogWithData(data))
+        } else {
+          this.tareaService.addTareaToHobby(this.newTarea, this.hobbyID!).subscribe(data => this.closeDialogWithData(data));
+        }
+
       } else {
         Swal.fire('Tarea no creada', '', 'info');
       }

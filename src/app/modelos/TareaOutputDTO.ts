@@ -1,5 +1,6 @@
+import { Estado } from './estados';
 export class TareaOutputDTO {
     titulo: string = '';
     descripcion: string = '';
-    estado: string = '';
+    estado?: Estado | null;
 }

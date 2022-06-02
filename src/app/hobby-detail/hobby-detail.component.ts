@@ -15,6 +15,7 @@ import { TareaDialogOverviewComponent } from '../tarea-dialog-overview/tarea-dia
 export interface TareaDialogData {
   hobbyID: string;
   tareaOutputDTO: TareaOutputDTO;
+  tareaID: string;
 }
 
 @Component({
