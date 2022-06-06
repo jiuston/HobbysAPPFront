@@ -1,3 +1,4 @@
+import { GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
     })
+
   }
 
   get email() { return this.loginFormGroup.get('email') }
@@ -45,27 +47,27 @@ export class LoginComponent implements OnInit {
   }
 
   saveAndNavigate(data: any): void {
-    if(data.status === 200){
-    this.user = data.body;
-    localStorage.setItem('token', this.user!.token);
-    localStorage.setItem('isAdmin', this.user!.roles.includes('ADMIN') ? 'true' : 'false');
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Login correcto',
-      showConfirmButton: false,
-      timer: 1500
-    })
-    this.router.navigate(['/hobbys']);
-  }else{
-    Swal.fire({
-      position: 'center',
-      icon: 'error',
-      title: data.body,
-      showConfirmButton: false,
-      timer: 1500
-    })
-  }
+    if (data.status === 200) {
+      this.user = data.body;
+      localStorage.setItem('token', this.user!.token);
+      localStorage.setItem('isAdmin', this.user!.roles.includes('ADMIN') ? 'true' : 'false');
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Login correcto',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      this.router.navigate(['/hobbys']);
+    } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: data.body,
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
   }
 }
 

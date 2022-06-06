@@ -16,7 +16,7 @@ export class ToolbarComponent implements OnInit {
     this.localStorage = localStorage;
   }
 
-  logOut(){
+  logOut() {
     localStorage.clear();
   }
 

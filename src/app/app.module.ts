@@ -21,6 +21,7 @@ import { GastosComponent } from './gastos/gastos.component';
 import { HobbyDialogOverviewComponent } from './hobby-dialog-overview/hobby-dialog-overview.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { TareaDialogOverviewComponent } from './tarea-dialog-overview/tarea-dialog-overview.component';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { TareaDialogOverviewComponent } from './tarea-dialog-overview/tarea-dial
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SweetAlert2Module
+    SweetAlert2Module,
+    SocialLoginModule
   ],
   providers: [
     {
