@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { UserInputDTO } from '../modelos/UserInputDTO';
 import { UserService } from '../services/user.service';
-import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -35,7 +34,7 @@ export class LoginComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
     })
-    
+
   }
 
   get email() { return this.loginFormGroup.get('email') }
@@ -46,7 +45,7 @@ export class LoginComponent implements OnInit {
     const user = { 'email': this.email.value, 'password': this.password.value };
     this.userService.login(user).subscribe(data => this.saveAndNavigate(data));
   }
-  
+
 
   saveAndNavigate(data: any): void {
     if (data.status === 200) {
