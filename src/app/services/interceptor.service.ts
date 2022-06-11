@@ -26,6 +26,14 @@ export class InterceptorService implements HttpInterceptor {
       return next.handle(request).pipe(catchError((err: HttpErrorResponse) => {
         if (err.status === 404) {
           this.swal404(err);
+        }else{
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: err.message,
+            showConfirmButton: false,
+            timer: 1250
+          });
         }
         return of();
       })

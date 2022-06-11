@@ -1,4 +1,4 @@
-<div >
+<div>
     <div flex>
         <div class="fabButton">
             <button color="primary" mat-fab (click)="openDialog()">
@@ -16,7 +16,7 @@
                     <mat-card-title>{{hobby.nombre}}</mat-card-title>
                     <mat-card-subtitle>Inicio: {{hobby.fechaInicioHobby}}</mat-card-subtitle>
                 </mat-card-title-group>
-                <img mat-card-image src={{hobby.imageURL}} style="cursor: pointer;" (click)=openIMG(hobby.imageURL)>
+                <img mat-card-image src={{hobby.imageURL}}{{tokenURL}} style="cursor: pointer;" (click)=openIMG(hobby.imageURL)>
 
                 <mat-card-actions class="hobbyDetailContainer">
                     <button mat-raised-button color="primary" (click)="editHobby(index)">EDITAR</button>

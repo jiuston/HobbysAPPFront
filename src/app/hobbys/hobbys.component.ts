@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+
 export interface DialogData {
   newHobby: HobbyOutputDTO;
   hobbyID: string;
@@ -23,10 +24,12 @@ export class HobbysComponent implements OnInit {
   hobbys: Hobby[] = [];
   newHobby: HobbyOutputDTO = new HobbyOutputDTO();
   hobbyID?: string;
+  tokenURL?: string | null;
 
   constructor(private hobbyService: HobbyService, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
+    this.tokenURL = '&token='+localStorage.getItem(`token`);
     this.loadHobbys();
   }
 
@@ -82,6 +85,7 @@ export class HobbysComponent implements OnInit {
     this.hobbyID = hobby.id;
     this.openDialog();
   }
+
 
 }
 
