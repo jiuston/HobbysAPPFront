@@ -9,7 +9,7 @@
                     <mat-label>Titulo:</mat-label>
                     <input matInput formControlName="titulo">
                     <mat-error *ngIf="titulo.errors?.['required']">
-                    El titulo de la tarea <strong>no puede faltar o estar vacío</strong>
+                        El titulo de la tarea <strong>no puede faltar o estar vacío</strong>
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field color="accent" class="example-full-width" appearance="fill">
@@ -28,9 +28,8 @@
                     </mat-select>
                 </mat-form-field>
                 <div class="hobbyDetailContainer">
-                    <button type="submit" mat-raised-button color="primary"
-                        [disabled]="!newTareaForm.valid">{{buttonText}}</button>
-                    <button type="reset" mat-raised-button color="warn" (click)="closeDialog()">CANCELAR</button>
+                    <button type="submit" mat-raised-button [disabled]="!newTareaForm.valid" style="--clr:#306d8a" class="buttonGlow"><span class="spanGlow">{{buttonText}}</span><i></i></button>
+                    <button type="reset" mat-raised-button color="warn" style="--clr:#9e0e0e" class="buttonGlow" (click)="closeDialog()"><span class="spanGlow">Cancelar</span><i></i></button>
                 </div>
             </form>
         </mat-card>

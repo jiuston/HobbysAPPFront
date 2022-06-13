@@ -1,3 +1,6 @@
+<div *ngIf="isLoading">
+    <loading-progress></loading-progress>
+</div>
 <div mat-dialog-content>
     <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
         <mat-card class="box">
@@ -22,8 +25,8 @@
                 <mat-label>Imagen</mat-label>
                 <file-upload requiredFileType="image/jpeg, image/png"></file-upload>
                 <div class="hobbyDetailContainer">
-                    <button type="submit" mat-raised-button color="primary" [disabled]="!newHobbyForm.valid">{{buttonText}}</button>
-                    <button type="reset" mat-raised-button color="warn" (click)="closeDialog()">Cancelar</button>
+                    <button type="submit" mat-raised-button [disabled]="!newHobbyForm.valid" style="--clr:#306d8a" class="buttonGlow"><span class="spanGlow">{{buttonText}}</span><i></i></button>
+                    <button type="reset" mat-raised-button color="warn" style="--clr:#9e0e0e" class="buttonGlow" (click)="closeDialog()"><span class="spanGlow">Cancelar</span><i></i></button>
                 </div>
             </form>
         </mat-card>

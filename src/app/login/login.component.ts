@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
@@ -25,11 +25,13 @@ export class LoginComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   user?: UserInputDTO;
+  isLoading:boolean =false;
 
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private cdRef:ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    this.isLoading=false;
     this.loginFormGroup = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
@@ -42,13 +44,20 @@ export class LoginComponent implements OnInit {
   get password() { return this.loginFormGroup.get('password') }
 
   login() {
+    this.isLoading=true;
     const user = { 'email': this.email.value, 'password': this.password.value };
-    this.userService.login(user).subscribe(data => this.saveAndNavigate(data));
+    this.userService.login(user).subscribe({
+      next: data => {
+        this.saveAndNavigate(data)
+      },
+      error: err =>{
+        this.isLoading=false;
+      }
+    });
   }
 
 
   saveAndNavigate(data: any): void {
-    if (data.status === 200) {
       this.user = data.body;
       localStorage.setItem('token', this.user!.token);
       localStorage.setItem('isAdmin', this.user!.roles.includes('ADMIN') ? 'true' : 'false');
@@ -60,15 +69,7 @@ export class LoginComponent implements OnInit {
         timer: 1500
       })
       this.router.navigate(['/hobbys']);
-    } else {
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: data.body,
-        showConfirmButton: false,
-        timer: 1500
-      })
-    }
+    
   }
 }
 

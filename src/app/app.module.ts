@@ -22,6 +22,7 @@ import { HobbyDialogOverviewComponent } from './hobby-dialog-overview/hobby-dial
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { TareaDialogOverviewComponent } from './tarea-dialog-overview/tarea-dialog-overview.component';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { LoadingProgressComponent } from './loading-progress/loading-progress.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, So
     GastosComponent,
     HobbyDialogOverviewComponent,
     FileUploadComponent,
-    TareaDialogOverviewComponent
+    TareaDialogOverviewComponent,
+    LoadingProgressComponent
   ],
   imports: [
     BrowserModule,

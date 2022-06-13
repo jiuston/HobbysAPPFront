@@ -9,6 +9,8 @@ import { TareaInputDTO } from '../modelos/TareaInputDTO';
 import { GastoService } from '../services/gasto.service';
 import { TareaService } from '../services/tarea.service';
 import { TareaDialogOverviewComponent } from '../tarea-dialog-overview/tarea-dialog-overview.component';
+import { ComentarioInputDTO } from '../modelos/ComentarioInputDTO';
+import { ComentarioService } from '../services/comentario.service';
 
 @Component({
   selector: 'app-tarea-detail',
@@ -22,13 +24,15 @@ export class TareaDetailComponent implements OnInit {
   tareaID?: string;
   gastos: GastoInputDTO[] = [];
   editedTarea?: TareaOutputDTO;
+  comentarios: ComentarioInputDTO[] = [];
 
-  constructor(private tareaService: TareaService, public dialog: MatDialog, private router: Router, private gastoService: GastoService, private activatedRoute: ActivatedRoute) { }
+  constructor(private tareaService: TareaService, public dialog: MatDialog, private router: Router, private comentarioService:ComentarioService, private gastoService: GastoService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.tareaID = this.activatedRoute.snapshot.paramMap.get('id')!;
     this.tareaService.getTarea(this.tareaID).subscribe(data => this.setParams(data));
     this.gastoService.getGastosByTarea(this.tareaID).subscribe(data => this.gastos = data.body)
+    this.comentarioService.getComentariosByTarea(this.tareaID).subscribe(data => this.comentarios=data.body);
   }
 
   setParams(data: any) {
@@ -63,6 +67,13 @@ export class TareaDetailComponent implements OnInit {
     });
   }
 
+  editComentario(){
+
+  }
+
+  deleteComentario(){
+    
+  }
 
   delete() {
     Swal.fire({
@@ -74,7 +85,7 @@ export class TareaDetailComponent implements OnInit {
       confirmButtonColor: 'warn',
       focusCancel: true,
       confirmButtonText: 'Sí, eliminar',
-      customClass: { cancelButton : 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-primary',
+      customClass: { cancelButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-primary',
                       confirmButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-warn'},
       buttonsStyling: false
     }).then((result) => {

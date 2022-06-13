@@ -1,32 +1,37 @@
-<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
-    <mat-card class="box">
-        <mat-card-header>
-            <mat-card-title>Log in</mat-card-title>
-        </mat-card-header>
-        <form class="example-form" (submit)="login()" [formGroup]="loginFormGroup">
-            <mat-form-field color="accent" class="example-full-width" appearance="fill">
-                <mat-label>Email</mat-label>
-                <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
-                <mat-error *ngIf="email.errors?.['email']">
-                    Introduce una dirección de email válida
-                </mat-error>
-                <mat-error *ngIf="email.errors?.['required']">
-                    Se <strong>requiere</strong> un email.
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field color="accent" class="example-full-width" appearance="fill">
-                <mat-label>Contraseña</mat-label>
-                <input type="password" matInput formControlName="password">
-                <mat-error *ngIf="password.errors?.['required']">
-                    La contraseña es <strong>obligatoria</strong>
-                </mat-error>
-            </mat-form-field>
-            <button type="submit" mat-stroked-button color="primary" [disabled]="!loginFormGroup.valid" class=" btn-block ">Log in</button>
-        </form>
-    </mat-card>
-    <!--<div id="g_id_onload" data-client_id="1083984872138-dg4log0969hvdqqp8p74c5m565sgj0j4.apps.googleusercontent.com" data-context="signin" data-ux_mode="popup" data-login_uri="http://localhost:8080/oauth2" data-nonce="" data-auto_prompt="false">
+<div *ngIf="isLoading">
+    <loading-progress></loading-progress>
+</div>
+<div class="login">
+    <div class="login-wrapper">
+        <mat-card class="box">
+            <mat-card-header>
+                <mat-card-title>Log in</mat-card-title>
+            </mat-card-header>
+            <form class="example-form" (submit)="login()" [formGroup]="loginFormGroup">
+                <mat-form-field color="accent" class="example-full-width" appearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+                    <mat-error *ngIf="email.errors?.['email']">
+                        Introduce una dirección de email válida
+                    </mat-error>
+                    <mat-error *ngIf="email.errors?.['required']">
+                        Se <strong>requiere</strong> un email.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field color="accent" class="example-full-width" appearance="fill">
+                    <mat-label>Contraseña</mat-label>
+                    <input type="password" matInput formControlName="password">
+                    <mat-error *ngIf="password.errors?.['required']">
+                        La contraseña es <strong>obligatoria</strong>
+                    </mat-error>
+                </mat-form-field>
+                <button type="submit" mat-stroked-button [disabled]="!loginFormGroup.valid" style="--clr:#306d8a" class="buttonGlow btn-block "><span class="spanGlow">Log In</span><i></i></button>
+            </form>
+        </mat-card>
+        <!--<div id="g_id_onload" data-client_id="1083984872138-dg4log0969hvdqqp8p74c5m565sgj0j4.apps.googleusercontent.com" data-context="signin" data-ux_mode="popup" data-login_uri="http://localhost:8080/oauth2" data-nonce="" data-auto_prompt="false">
     </div>
 
     <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_black" data-text="$ {button.text}" data-size="large" data-logo_alignment="left">
     </div>-->
+    </div>
 </div>

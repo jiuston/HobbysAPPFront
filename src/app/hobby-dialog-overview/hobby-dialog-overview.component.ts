@@ -26,6 +26,7 @@ export class HobbyDialogOverviewComponent implements OnInit {
   infoText: string = '';
   checkBox: boolean = false;
   hobbyName: string = '';
+  isLoading:boolean = false;
 
   constructor(public dialogRef: MatDialogRef<HobbyDialogOverviewComponent>,
     private hobbyService: HobbyService, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
@@ -75,6 +76,7 @@ export class HobbyDialogOverviewComponent implements OnInit {
       buttonsStyling: false
     }).then((result) => {
       if (result.isConfirmed) {
+        this.isLoading=true;
         this.formData = new FormData();
         this.file = FileUploadComponent.getFile();
         if (this.file) {
@@ -83,9 +85,23 @@ export class HobbyDialogOverviewComponent implements OnInit {
         this.formData.append('hobbyInputDTO', new Blob([JSON.stringify(this.newHobby)],
           { type: 'application/json' }));
         if (this.hobbyID) {
-          this.hobbyService.editHobby(this.formData, this.hobbyID, this.checkBox).subscribe(data => this.closeDialogWithData(data));
+          this.hobbyService.editHobby(this.formData, this.hobbyID, this.checkBox).subscribe({
+            next: data =>{
+              this.closeDialogWithData(data);
+            },
+            error: err =>{
+              this.isLoading=false;
+            }
+          });
         } else {
-          this.hobbyService.addHobby(this.formData).subscribe(data => this.closeDialogWithData(data));
+          this.hobbyService.addHobby(this.formData).subscribe({
+            next: data =>{
+              this.closeDialogWithData(data);
+            },
+            error: err =>{
+              this.isLoading=false;
+            }
+          });
         }
         this.clean();
       } else if (result.isDenied) {

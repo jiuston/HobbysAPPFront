@@ -1,4 +1,4 @@
-<button mat-raised-button color="primary" routerLink="/hobbys/{{hobbyID}}/view" class="backButton">Volver</button>
+<a class="buttonGlow backButton" style="--clr:#306d8a" routerLink="/hobbys/{{hobbyID}}/view"><span class="spanGlow">Volver</span><i></i></a>
 <div class="hobbyDetailContainer">
     <mat-card class="hobbyViewCard">
         <mat-card-title-group>
@@ -10,13 +10,35 @@
             {{tarea.descripcion}}
         </mat-card-content>
         <mat-card-actions class="hobbyDetailContainer">
-            <button mat-raised-button color="primary" (click)="editTarea()">EDITAR</button>
-            <button mat-raised-button color="warn" (click)="delete()">ELIMINAR</button>
+            <a class="buttonGlow" style="--clr:#306d8a" (click)="editTarea()"><span class="spanGlow">EDITAR</span><i></i></a>
+            <a class="buttonGlow" style="--clr:#9e0e0e" (click)="delete()"><span class="spanGlow">ELIMINAR</span><i></i></a>
         </mat-card-actions>
     </mat-card>
     <div class="rightListTabs">
-        <mat-tab-group  mat-align-tabs="center" backgroundColor="primary" color="accent">
+        <mat-tab-group mat-align-tabs="center" backgroundColor="primary" color="accent">
             <mat-tab label="Comentarios">
+                <mat-card class="ComentarioViewCard" *ngFor="let comentario of comentarios">
+                    <mat-card-header *ngIf="comentario.editado" else="NoEditado">
+                        <mat-card-title>Fecha comentario: {{comentario.fecha}}</mat-card-title>
+                        <mat-card-subtitle>(Editado)</mat-card-subtitle>
+                        <mat-card-subtitle>Fecha editado: {{comentario.fechaEditado}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-header #NoEditado>
+                        <mat-card-title>{{comentario.fecha}}</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>
+                            {{comentario.comentario}}
+                        </p>
+                        <div *ngFor="let imagen of comentario.imagenesURL" class="imagenes">
+                            <img mat-sm-card-image src={{imagen}} style="cursor: pointer;" (click)="openIMG(imagen)">
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions class="hobbyDetailContainer">
+                        <a class="buttonGlow" style="--clr:#306d8a" (click)="editComentario()"><span class="spanGlow">EDITAR</span><i></i></a>
+                        <a class="buttonGlow" style="--clr:#9e0e0e" (click)="deleteComentario()"><span class="spanGlow">ELIMINAR</span><i></i></a>
+                    </mat-card-actions>
+                </mat-card>
                 <div flex>
                     <div class="fabButtonTareas">
                         <button color="primary" mat-fab>
@@ -42,8 +64,8 @@
 
                     </mat-card-content>
                     <mat-card-actions class="hobbyDetailContainer">
-                        <button mat-raised-button color="primary">EDITAR</button>
-                        <button mat-raised-button color="warn">ELIMINAR</button>
+                        <a class="buttonGlow" style="--clr:#306d8a" (click)="editComentario()"><span class="spanGlow">EDITAR</span><i></i></a>
+                        <a class="buttonGlow" style="--clr:#9e0e0e" (click)="deleteComentario()"><span class="spanGlow">ELIMINAR</span><i></i></a>
                     </mat-card-actions>
                 </mat-card>
                 <div flex>
