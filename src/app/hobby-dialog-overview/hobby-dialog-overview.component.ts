@@ -88,6 +88,7 @@ export class HobbyDialogOverviewComponent implements OnInit {
           this.hobbyService.editHobby(this.formData, this.hobbyID, this.checkBox).subscribe({
             next: data =>{
               this.closeDialogWithData(data);
+              this.isLoading=false;
             },
             error: err =>{
               this.isLoading=false;
@@ -97,6 +98,7 @@ export class HobbyDialogOverviewComponent implements OnInit {
           this.hobbyService.addHobby(this.formData).subscribe({
             next: data =>{
               this.closeDialogWithData(data);
+              this.isLoading=false;
             },
             error: err =>{
               this.isLoading=false;

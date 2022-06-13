@@ -30,10 +30,12 @@ export class HobbyDetailComponent implements OnInit {
   tareas: SimpleTareaInputDTO[] = [];
   tareaSelected?: SimpleTareaInputDTO;
   editedHobby?: HobbyOutputDTO;
+  isLoading: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute, public dialog: MatDialog, private tareaService: TareaService, private hobbyService: HobbyService) { }
 
   ngOnInit(): void {
+    this.isLoading=true
     this.loadHobby();
   }
 
@@ -64,7 +66,10 @@ export class HobbyDetailComponent implements OnInit {
   loadHobby() {
     this.id = this.activatedRoute.snapshot.paramMap.get('id')!;
     this.hobbyService.getHobby(this.id).subscribe(data => this.hobby = data.body);
-    this.tareaService.getTareasByHobbyId(this.id).subscribe(data => this.tareas = data.body);
+    this.tareaService.getTareasByHobbyId(this.id).subscribe(data => {
+      this.tareas = data.body;
+      this.isLoading=false;
+    });
   }
 
   editHobby() {

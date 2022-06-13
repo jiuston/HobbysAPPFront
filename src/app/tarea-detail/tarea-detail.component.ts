@@ -25,14 +25,19 @@ export class TareaDetailComponent implements OnInit {
   gastos: GastoInputDTO[] = [];
   editedTarea?: TareaOutputDTO;
   comentarios: ComentarioInputDTO[] = [];
+  isLoading: boolean = false;
 
   constructor(private tareaService: TareaService, public dialog: MatDialog, private router: Router, private comentarioService:ComentarioService, private gastoService: GastoService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.isLoading =true;
     this.tareaID = this.activatedRoute.snapshot.paramMap.get('id')!;
     this.tareaService.getTarea(this.tareaID).subscribe(data => this.setParams(data));
     this.gastoService.getGastosByTarea(this.tareaID).subscribe(data => this.gastos = data.body)
-    this.comentarioService.getComentariosByTarea(this.tareaID).subscribe(data => this.comentarios=data.body);
+    this.comentarioService.getComentariosByTarea(this.tareaID).subscribe(data =>{
+      this.comentarios=data.body;
+      this.isLoading=false;
+    }) 
   }
 
   setParams(data: any) {

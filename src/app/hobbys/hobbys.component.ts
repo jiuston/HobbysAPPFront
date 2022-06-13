@@ -24,15 +24,21 @@ export class HobbysComponent implements OnInit {
   hobbys: Hobby[] = [];
   newHobby: HobbyOutputDTO = new HobbyOutputDTO();
   hobbyID?: string;
+  isLoading :boolean = false;
 
   constructor(private hobbyService: HobbyService, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
+    
     this.loadHobbys();
   }
 
   loadHobbys() {
-    this.hobbyService.getAllHobbys().subscribe(data => this.hobbys = data.body);
+    this.isLoading=true;
+    this.hobbyService.getAllHobbys().subscribe(data =>{ 
+      this.hobbys = data.body;
+      this.isLoading=false;
+    });
   }
 
   openIMG(url: string) {
@@ -64,8 +70,11 @@ export class HobbysComponent implements OnInit {
 
     }).then((result) => {
       if (result.isConfirmed) {
-        this.hobbyService.deleteHobbyByID(hobby.id).subscribe(data => this.procesarRespuesta(data));
-
+        this.isLoading=true;
+        this.hobbyService.deleteHobbyByID(hobby.id).subscribe(data => {
+          this.procesarRespuesta(data)
+          this.isLoading=false;
+        });
       }
     })
   }

@@ -1,3 +1,6 @@
+<div *ngIf="isLoading">
+    <loading-progress></loading-progress>
+</div>
 <a class="buttonGlow backButton" style="--clr:#306d8a" routerLink="/hobbys/{{hobbyID}}/view"><span class="spanGlow">Volver</span><i></i></a>
 <div class="hobbyDetailContainer">
     <mat-card class="hobbyViewCard">
