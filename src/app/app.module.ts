@@ -25,6 +25,7 @@ import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, So
 import { LoadingProgressComponent } from './loading-progress/loading-progress.component';
 import { ComentarioDialogComponent } from './comentario-dialog/comentario-dialog.component';
 import { FileUploadMultipleComponent } from './file-upload-multiple/file-upload-multiple.component';
+import { GastoDialogComponent } from './gasto-dialog/gasto-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { FileUploadMultipleComponent } from './file-upload-multiple/file-upload-
     TareaDialogOverviewComponent,
     LoadingProgressComponent,
     ComentarioDialogComponent,
-    FileUploadMultipleComponent
+    FileUploadMultipleComponent,
+    GastoDialogComponent
   ],
   imports: [
     BrowserModule,

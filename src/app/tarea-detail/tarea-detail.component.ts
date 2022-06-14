@@ -13,11 +13,19 @@ import { TareaService } from '../services/tarea.service';
 import { TareaDialogOverviewComponent } from '../tarea-dialog-overview/tarea-dialog-overview.component';
 import { ComentarioInputDTO } from '../modelos/ComentarioInputDTO';
 import { ComentarioService } from '../services/comentario.service';
+import { GastoOutputDTO } from '../modelos/GastoOutputDTO';
+import { GastoDialogComponent } from '../gasto-dialog/gasto-dialog.component';
 
 export interface ComentarioDialogData {
   comentarioID: string;
   tareaID: string;
   comentarioOutputDTO: ComentarioOutputDTO;
+}
+
+export interface GastoDialogData {
+  gastoID: string;
+  tareaID: string;
+  gastoOutputDTO: GastoOutputDTO;
 }
 
 
@@ -85,6 +93,13 @@ export class TareaDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.procesarRespuestaTarea(result, 'PUT');
     });
+  }
+
+  addGasto(){
+    const dialogRef = this.dialog.open(GastoDialogComponent, { width: '500px', data: { tareaID: this.tareaID, gastoOutputDTO: new GastoOutputDTO() } })
+    dialogRef.afterClosed().subscribe(result => {
+      this.procesarRespuesta(result);
+    })
   }
 
   editGasto(id: string){
