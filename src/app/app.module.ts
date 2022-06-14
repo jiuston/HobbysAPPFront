@@ -23,6 +23,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { TareaDialogOverviewComponent } from './tarea-dialog-overview/tarea-dialog-overview.component';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { LoadingProgressComponent } from './loading-progress/loading-progress.component';
+import { ComentarioDialogComponent } from './comentario-dialog/comentario-dialog.component';
+import { FileUploadMultipleComponent } from './file-upload-multiple/file-upload-multiple.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { LoadingProgressComponent } from './loading-progress/loading-progress.co
     HobbyDialogOverviewComponent,
     FileUploadComponent,
     TareaDialogOverviewComponent,
-    LoadingProgressComponent
+    LoadingProgressComponent,
+    ComentarioDialogComponent,
+    FileUploadMultipleComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +61,7 @@ import { LoadingProgressComponent } from './loading-progress/loading-progress.co
       useClass: InterceptorService,
       multi: true
     },
-   
+
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

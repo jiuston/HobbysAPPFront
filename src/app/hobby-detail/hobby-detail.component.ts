@@ -35,7 +35,6 @@ export class HobbyDetailComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, public dialog: MatDialog, private tareaService: TareaService, private hobbyService: HobbyService) { }
 
   ngOnInit(): void {
-    this.isLoading=true
     this.loadHobby();
   }
 
@@ -64,11 +63,12 @@ export class HobbyDetailComponent implements OnInit {
   }
 
   loadHobby() {
+    this.isLoading = true
     this.id = this.activatedRoute.snapshot.paramMap.get('id')!;
     this.hobbyService.getHobby(this.id).subscribe(data => this.hobby = data.body);
     this.tareaService.getTareasByHobbyId(this.id).subscribe(data => {
       this.tareas = data.body;
-      this.isLoading=false;
+      this.isLoading = false;
     });
   }
 
@@ -89,8 +89,10 @@ export class HobbyDetailComponent implements OnInit {
       focusCancel: true,
       confirmButtonText: 'Sí, eliminar',
       buttonsStyling: false,
-      customClass: { cancelButton : 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-primary',
-                      confirmButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-warn'},
+      customClass: {
+        cancelButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-primary',
+        confirmButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-warn'
+      },
 
     }).then((result) => {
       if (result.isConfirmed) {

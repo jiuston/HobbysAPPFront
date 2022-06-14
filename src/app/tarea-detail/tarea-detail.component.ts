@@ -1,3 +1,5 @@
+import { ComentarioDialogComponent } from './../comentario-dialog/comentario-dialog.component';
+import { ComentarioOutputDTO } from './../modelos/ComentarioOutputDTO';
 import { TareaOutputDTO } from './../modelos/TareaOutputDTO';
 import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -11,6 +13,13 @@ import { TareaService } from '../services/tarea.service';
 import { TareaDialogOverviewComponent } from '../tarea-dialog-overview/tarea-dialog-overview.component';
 import { ComentarioInputDTO } from '../modelos/ComentarioInputDTO';
 import { ComentarioService } from '../services/comentario.service';
+
+export interface ComentarioDialogData {
+  comentarioID: string;
+  tareaID: string;
+  comentarioOutputDTO: ComentarioOutputDTO;
+}
+
 
 @Component({
   selector: 'app-tarea-detail',
@@ -27,17 +36,12 @@ export class TareaDetailComponent implements OnInit {
   comentarios: ComentarioInputDTO[] = [];
   isLoading: boolean = false;
 
-  constructor(private tareaService: TareaService, public dialog: MatDialog, private router: Router, private comentarioService:ComentarioService, private gastoService: GastoService, private activatedRoute: ActivatedRoute) { }
+  constructor(private tareaService: TareaService, public dialog: MatDialog, private router: Router, private comentarioService: ComentarioService, private gastoService: GastoService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.isLoading =true;
+    this.isLoading = true;
     this.tareaID = this.activatedRoute.snapshot.paramMap.get('id')!;
-    this.tareaService.getTarea(this.tareaID).subscribe(data => this.setParams(data));
-    this.gastoService.getGastosByTarea(this.tareaID).subscribe(data => this.gastos = data.body)
-    this.comentarioService.getComentariosByTarea(this.tareaID).subscribe(data =>{
-      this.comentarios=data.body;
-      this.isLoading=false;
-    }) 
+    this.loadData()
   }
 
   setParams(data: any) {
@@ -53,8 +57,18 @@ export class TareaDetailComponent implements OnInit {
     if (data && data.status === 200 && method === 'DELETE') {
       this.router.navigateByUrl(`/hobbys/${this.hobbyID}/view`);
     } else if (data && data.status === 200) {
-      this.tareaService.getTarea(this.tareaID!).subscribe(data => this.setParams(data));
+      this.loadData();
     }
+  }
+
+  loadData() {
+    this.isLoading = true;
+    this.tareaService.getTarea(this.tareaID!).subscribe(data => this.setParams(data));
+    this.gastoService.getGastosByTarea(this.tareaID!).subscribe(data => this.gastos = data.body);
+    this.comentarioService.getComentariosByTarea(this.tareaID!).subscribe(data => {
+      this.comentarios = data.body;
+      this.isLoading = false;
+    });
   }
 
   editTarea() {
@@ -72,12 +86,20 @@ export class TareaDetailComponent implements OnInit {
     });
   }
 
-  editComentario(){
+  editComentario() {
 
   }
 
-  deleteComentario(){
-    
+  deleteComentario() {
+
+  }
+
+  addCommentario() {
+
+    const dialogRef = this.dialog.open(ComentarioDialogComponent, { width: '500px', data: { tareaID: this.tareaID, comentarioOutputDTO: new ComentarioOutputDTO() } })
+    dialogRef.afterClosed().subscribe(result => {
+      this.procesarRespuesta(result, 'POST');
+    })
   }
 
   delete() {
@@ -90,8 +112,10 @@ export class TareaDetailComponent implements OnInit {
       confirmButtonColor: 'warn',
       focusCancel: true,
       confirmButtonText: 'Sí, eliminar',
-      customClass: { cancelButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-primary',
-                      confirmButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-warn'},
+      customClass: {
+        cancelButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-primary',
+        confirmButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-warn'
+      },
       buttonsStyling: false
     }).then((result) => {
       if (result.isConfirmed) {

@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -9,11 +8,11 @@ import Swal from 'sweetalert2';
 })
 export class FileUploadComponent implements OnInit {
 
+
   @Input()
   requiredFileType?: string;
 
-  fileName = '';
-  static file: any;
+  static file: File | null;
 
   constructor() { }
 
@@ -21,22 +20,28 @@ export class FileUploadComponent implements OnInit {
   }
 
   static getFile() {
-    return this.file;
+    if (this.file) {
+      return this.file;
+    } else {
+      return null;
+    }
   }
 
   onFileSelected(event: any) {
     if (event.target.files[0]) {
       FileUploadComponent.file = event.target.files[0];
-      this.fileName = FileUploadComponent.file.name;
     }
-    if (FileUploadComponent.file.type !== 'image/jpeg' && FileUploadComponent.file.type !== 'image/png') {
-      this.fileName = '';
-      FileUploadComponent.file = null;
+
+    if (FileUploadComponent.file!.type !== 'image/jpeg' && FileUploadComponent.file!.type !== 'image/png') {
+      FileUploadComponent.file = null
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Solo se permiten archivos .png o .jpg',
       });
+
     }
+
+
   }
 }

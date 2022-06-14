@@ -117,6 +117,13 @@ body {
     justify-content: space-around;
 }
 
+.comentarioActionsContainer {
+    display: flex !important;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+}
+
 .swal2-popup {
     background-color: #262626 !important;
     color: white !important;
@@ -146,6 +153,10 @@ body {
     height: max-content;
 }
 
+.comentarioViewCard {
+    margin-bottom: 15px;
+}
+
 .GastoViewCard {
     margin: 20px;
     height: max-content;
@@ -164,15 +175,31 @@ body {
 }
 
 .fabButtonTareas {
+
+    position: absolute;
+    right: 1.5em;
+    top: 0.5em;
+    z-index: 1;
+    border-radius: 50%;
+}
+
+.fabButtonhobbyDetail {
     float: right;
+    right: 1em;
+    bottom: 1em;
 }
 
 .rightListTabs {
     width: 900px;
-    margin: 20px;
     border-radius: 5px;
     min-height: 175px;
-    max-height: fit-content;
+}
+
+.mat-tab-group {}
+
+.mat-tab-body {
+    max-height: 500px !important;
+    min-height: 200px !important;
 }
 
 .backButton {
@@ -207,6 +234,7 @@ body {
     background: var(--clr);
     /*color: var(--clr);*/
     box-shadow: 0 0 35px var(--clr);
+
 }
 
 .buttonGlow::before {
@@ -214,6 +242,11 @@ body {
     position: absolute;
     inset: 2px;
     background: var(--clr);
+}
+
+.mat-fab:hover {
+    box-shadow: 0 0 35px #306d8a !important;
+    transition: 0.5s !important;
 }
 
 .buttonGlow .spanGlow {

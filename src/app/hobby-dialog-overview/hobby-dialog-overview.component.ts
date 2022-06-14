@@ -26,7 +26,7 @@ export class HobbyDialogOverviewComponent implements OnInit {
   infoText: string = '';
   checkBox: boolean = false;
   hobbyName: string = '';
-  isLoading:boolean = false;
+  isLoading: boolean = false;
 
   constructor(public dialogRef: MatDialogRef<HobbyDialogOverviewComponent>,
     private hobbyService: HobbyService, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
@@ -71,14 +71,16 @@ export class HobbyDialogOverviewComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: this.buttonText,
       cancelButtonText: `Cancelar`,
-      customClass: { cancelButton : 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-primary',
-                      confirmButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-warn'},
+      customClass: {
+        cancelButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-primary',
+        confirmButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-warn'
+      },
       buttonsStyling: false
     }).then((result) => {
       if (result.isConfirmed) {
-        this.isLoading=true;
+        this.isLoading = true;
         this.formData = new FormData();
-        this.file = FileUploadComponent.getFile();
+        this.file = FileUploadComponent.getFile()!;
         if (this.file) {
           this.formData.append('file', this.file!, this.file!.name);
         }
@@ -86,22 +88,22 @@ export class HobbyDialogOverviewComponent implements OnInit {
           { type: 'application/json' }));
         if (this.hobbyID) {
           this.hobbyService.editHobby(this.formData, this.hobbyID, this.checkBox).subscribe({
-            next: data =>{
+            next: data => {
               this.closeDialogWithData(data);
-              this.isLoading=false;
+              this.isLoading = false;
             },
-            error: err =>{
-              this.isLoading=false;
+            error: err => {
+              this.isLoading = false;
             }
           });
         } else {
           this.hobbyService.addHobby(this.formData).subscribe({
-            next: data =>{
+            next: data => {
               this.closeDialogWithData(data);
-              this.isLoading=false;
+              this.isLoading = false;
             },
-            error: err =>{
-              this.isLoading=false;
+            error: err => {
+              this.isLoading = false;
             }
           });
         }

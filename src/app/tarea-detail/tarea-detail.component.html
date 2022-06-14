@@ -3,6 +3,7 @@
 </div>
 <a class="buttonGlow backButton" style="--clr:#306d8a" routerLink="/hobbys/{{hobbyID}}/view"><span class="spanGlow">Volver</span><i></i></a>
 <div class="hobbyDetailContainer">
+    
     <mat-card class="hobbyViewCard">
         <mat-card-title-group>
             <mat-card-title>{{tarea.titulo}}</mat-card-title>
@@ -13,14 +14,21 @@
             {{tarea.descripcion}}
         </mat-card-content>
         <mat-card-actions class="hobbyDetailContainer">
-            <a class="buttonGlow" style="--clr:#306d8a" (click)="editTarea()"><span class="spanGlow">EDITAR</span><i></i></a>
-            <a class="buttonGlow" style="--clr:#9e0e0e" (click)="delete()"><span class="spanGlow">ELIMINAR</span><i></i></a>
+            <a class="buttonGlow" style="--clr:#306d8a" (click)="editTarea()"><span class="spanGlow"><mat-icon>edit</mat-icon></span><i></i></a>
+            <a class="buttonGlow" style="--clr:#9e0e0e" (click)="delete()"><span class="spanGlow"><mat-icon>delete</mat-icon></span><i></i></a>
         </mat-card-actions>
     </mat-card>
     <div class="rightListTabs">
         <mat-tab-group mat-align-tabs="center" backgroundColor="primary" color="accent">
             <mat-tab label="Comentarios">
-                <mat-card class="ComentarioViewCard" *ngFor="let comentario of comentarios">
+                <div flex>
+                    <div class="fabButtonTareas">
+                        <button color="primary" mat-fab (click)="addCommentario()">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <mat-card class="comentarioViewCard" *ngFor="let comentario of comentarios">
                     <mat-card-header *ngIf="comentario.editado" else="NoEditado">
                         <mat-card-title>Fecha comentario: {{comentario.fecha}}</mat-card-title>
                         <mat-card-subtitle>(Editado)</mat-card-subtitle>
@@ -29,6 +37,9 @@
                     <mat-card-header #NoEditado>
                         <mat-card-title>{{comentario.fecha}}</mat-card-title>
                     </mat-card-header>
+                    <mat-card-subtitle>
+                        Comentario:
+                    </mat-card-subtitle>
                     <mat-card-content>
                         <p>
                             {{comentario.comentario}}
@@ -37,11 +48,14 @@
                             <img mat-sm-card-image src={{imagen}} style="cursor: pointer;" (click)="openIMG(imagen)">
                         </div>
                     </mat-card-content>
-                    <mat-card-actions class="hobbyDetailContainer">
-                        <a class="buttonGlow" style="--clr:#306d8a" (click)="editComentario()"><span class="spanGlow">EDITAR</span><i></i></a>
-                        <a class="buttonGlow" style="--clr:#9e0e0e" (click)="deleteComentario()"><span class="spanGlow">ELIMINAR</span><i></i></a>
+                    <mat-card-actions class="comentarioActionsContainer">
+                        <a class="buttonGlow" style="--clr:#306d8a" (click)="editComentario()"><span class="spanGlow"><mat-icon>edit</mat-icon></span><i></i></a>
+                        <a class="buttonGlow" style="--clr:#9e0e0e" (click)="deleteComentario()"><span class="spanGlow"><mat-icon>delete</mat-icon></span><i></i></a>
                     </mat-card-actions>
                 </mat-card>
+
+            </mat-tab>
+            <mat-tab label="Gastos">
                 <div flex>
                     <div class="fabButtonTareas">
                         <button color="primary" mat-fab>
@@ -49,8 +63,6 @@
                         </button>
                     </div>
                 </div>
-            </mat-tab>
-            <mat-tab label="Gastos">
                 <mat-card class="GastoViewCard" *ngFor="let gasto of gastos">
                     <mat-card-header>
                         <mat-card-title>{{gasto.concepto}}</mat-card-title>
@@ -71,13 +83,7 @@
                         <a class="buttonGlow" style="--clr:#9e0e0e" (click)="deleteComentario()"><span class="spanGlow">ELIMINAR</span><i></i></a>
                     </mat-card-actions>
                 </mat-card>
-                <div flex>
-                    <div class="fabButtonTareas">
-                        <button color="primary" mat-fab>
-                            <mat-icon>add</mat-icon>
-                        </button>
-                    </div>
-                </div>
+                
             </mat-tab>
         </mat-tab-group>
     </div>

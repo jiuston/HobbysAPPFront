@@ -25,13 +25,13 @@ export class LoginComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   user?: UserInputDTO;
-  isLoading:boolean =false;
+  isLoading: boolean = false;
 
 
-  constructor(private userService: UserService, private router: Router, private cdRef:ChangeDetectorRef) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
-    this.isLoading=false;
+    this.isLoading = false;
     this.loginFormGroup = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
@@ -44,32 +44,32 @@ export class LoginComponent implements OnInit {
   get password() { return this.loginFormGroup.get('password') }
 
   login() {
-    this.isLoading=true;
+    this.isLoading = true;
     const user = { 'email': this.email.value, 'password': this.password.value };
     this.userService.login(user).subscribe({
       next: data => {
         this.saveAndNavigate(data)
       },
-      error: err =>{
-        this.isLoading=false;
+      error: err => {
+        this.isLoading = false;
       }
     });
   }
 
 
   saveAndNavigate(data: any): void {
-      this.user = data.body;
-      localStorage.setItem('token', this.user!.token);
-      localStorage.setItem('isAdmin', this.user!.roles.includes('ADMIN') ? 'true' : 'false');
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Login correcto',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      this.router.navigate(['/hobbys']);
-    
+    this.user = data.body;
+    localStorage.setItem('token', this.user!.token);
+    localStorage.setItem('isAdmin', this.user!.roles.includes('ADMIN') ? 'true' : 'false');
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Login correcto',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    this.router.navigate(['/hobbys']);
+
   }
 }
 
