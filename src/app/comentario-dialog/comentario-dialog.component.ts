@@ -91,7 +91,7 @@ export class ComentarioDialogComponent implements OnInit {
 
         this.formData.append('comentarioInputDTO', new Blob([JSON.stringify(this.newComentario.comentario)], { type: 'application/json' }));
         if (this.comentarioID) {
-          this.comentarioService.editComentario(this.newComentario, this.comentarioID!).subscribe(data => this.closeDialogWithData(data))
+          this.comentarioService.editComentario(this.newComentario, this.formData,this.comentarioID!).subscribe(data => this.closeDialogWithData(data))
         } else {
           this.comentarioService.addComentario(this.tareaID!, this.formData).subscribe(data => this.closeDialogWithData(data));
         }

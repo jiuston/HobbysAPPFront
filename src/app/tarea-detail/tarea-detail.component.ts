@@ -34,6 +34,7 @@ export class TareaDetailComponent implements OnInit {
   gastos: GastoInputDTO[] = [];
   editedTarea?: TareaOutputDTO;
   comentarios: ComentarioInputDTO[] = [];
+  comentario? : ComentarioOutputDTO;
   isLoading: boolean = false;
 
   constructor(private tareaService: TareaService, public dialog: MatDialog, private router: Router, private comentarioService: ComentarioService, private gastoService: GastoService, private activatedRoute: ActivatedRoute) { }
@@ -53,7 +54,7 @@ export class TareaDetailComponent implements OnInit {
     window.open(url);
   }
 
-  procesarRespuesta(data: HttpResponse<any>, method: string): void {
+  procesarRespuestaTarea(data: HttpResponse<any>, method: string): void {
     if (data && data.status === 200 && method === 'DELETE') {
       this.router.navigateByUrl(`/hobbys/${this.hobbyID}/view`);
     } else if (data && data.status === 200) {
@@ -82,23 +83,59 @@ export class TareaDetailComponent implements OnInit {
   openTareaDialog() {
     const dialogRef = this.dialog.open(TareaDialogOverviewComponent, { width: '500px', data: { hobbyID: this.hobbyID, tareaOutputDTO: this.editedTarea, tareaID: this.tareaID } });
     dialogRef.afterClosed().subscribe(result => {
-      this.procesarRespuesta(result, 'PUT');
+      this.procesarRespuestaTarea(result, 'PUT');
     });
   }
 
-  editComentario() {
+  editGasto(id: string){
 
   }
 
-  deleteComentario() {
+  deleteGasto(id:string){
 
+  }
+
+  editComentario(index: ComentarioInputDTO) {
+    this.comentario=  new ComentarioOutputDTO();
+    this.comentario.comentario = index.comentario;
+    const dialogRef = this.dialog.open(ComentarioDialogComponent, { width: '500px', data: { tareaID: this.tareaID, comentarioOutputDTO: this.comentario, comentarioID: index.id} })
+    dialogRef.afterClosed().subscribe(result => {
+      this.procesarRespuesta(result);
+    })
+  }
+
+  deleteComentario(id: string) {
+    Swal.fire({
+      title: '¿Borrar este comentario?',
+      text: "Si se borra este comentario tambien se eliminarán las imagenes asociadas.",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: 'warn',
+      focusCancel: true,
+      confirmButtonText: 'Sí, eliminar',
+      customClass: {
+        cancelButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-primary',
+        confirmButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-warn'
+      },
+      buttonsStyling: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.comentarioService.deleteComentarioByID(id).subscribe(data => this.procesarRespuesta(data));
+      }
+    })
+  }
+  procesarRespuesta(data: HttpResponse<any>): void {
+    if (data && data.status === 200) {
+      this.loadData();
+    }
   }
 
   addCommentario() {
 
     const dialogRef = this.dialog.open(ComentarioDialogComponent, { width: '500px', data: { tareaID: this.tareaID, comentarioOutputDTO: new ComentarioOutputDTO() } })
     dialogRef.afterClosed().subscribe(result => {
-      this.procesarRespuesta(result, 'POST');
+      this.procesarRespuesta(result);
     })
   }
 
@@ -119,7 +156,7 @@ export class TareaDetailComponent implements OnInit {
       buttonsStyling: false
     }).then((result) => {
       if (result.isConfirmed) {
-        this.tareaService.deleteTareaByID(this.tareaID!).subscribe(data => this.procesarRespuesta(data, 'DELETE'));
+        this.tareaService.deleteTareaByID(this.tareaID!).subscribe(data => this.procesarRespuestaTarea(data, 'DELETE'));
       }
     })
   }

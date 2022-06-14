@@ -175,7 +175,6 @@ body {
 }
 
 .fabButtonTareas {
-
     position: absolute;
     right: 1.5em;
     top: 0.5em;
@@ -198,7 +197,7 @@ body {
 .mat-tab-group {}
 
 .mat-tab-body {
-    max-height: 500px !important;
+    max-height: 700px !important;
     min-height: 200px !important;
 }
 
@@ -234,7 +233,6 @@ body {
     background: var(--clr);
     /*color: var(--clr);*/
     box-shadow: 0 0 35px var(--clr);
-
 }
 
 .buttonGlow::before {

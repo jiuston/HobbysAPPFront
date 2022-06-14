@@ -3,7 +3,7 @@
 </div>
 <a class="buttonGlow backButton" style="--clr:#306d8a" routerLink="/hobbys/{{hobbyID}}/view"><span class="spanGlow">Volver</span><i></i></a>
 <div class="hobbyDetailContainer">
-    
+
     <mat-card class="hobbyViewCard">
         <mat-card-title-group>
             <mat-card-title>{{tarea.titulo}}</mat-card-title>
@@ -45,12 +45,12 @@
                             {{comentario.comentario}}
                         </p>
                         <div *ngFor="let imagen of comentario.imagenesURL" class="imagenes">
-                            <img mat-sm-card-image src={{imagen}} style="cursor: pointer;" (click)="openIMG(imagen)">
+                            <img mat-card-image src={{imagen}} style="cursor: pointer; width: 175px; height: 175px; margin: 10px;" (click)="openIMG(imagen)">
                         </div>
                     </mat-card-content>
                     <mat-card-actions class="comentarioActionsContainer">
-                        <a class="buttonGlow" style="--clr:#306d8a" (click)="editComentario()"><span class="spanGlow"><mat-icon>edit</mat-icon></span><i></i></a>
-                        <a class="buttonGlow" style="--clr:#9e0e0e" (click)="deleteComentario()"><span class="spanGlow"><mat-icon>delete</mat-icon></span><i></i></a>
+                        <a class="buttonGlow" style="--clr:#306d8a" (click)="editComentario(comentario)"><span class="spanGlow"><mat-icon>edit</mat-icon></span><i></i></a>
+                        <a class="buttonGlow" style="--clr:#9e0e0e" (click)="deleteComentario(comentario.id)"><span class="spanGlow"><mat-icon>delete</mat-icon></span><i></i></a>
                     </mat-card-actions>
                 </mat-card>
 
@@ -79,11 +79,11 @@
 
                     </mat-card-content>
                     <mat-card-actions class="hobbyDetailContainer">
-                        <a class="buttonGlow" style="--clr:#306d8a" (click)="editComentario()"><span class="spanGlow">EDITAR</span><i></i></a>
-                        <a class="buttonGlow" style="--clr:#9e0e0e" (click)="deleteComentario()"><span class="spanGlow">ELIMINAR</span><i></i></a>
+                        <a class="buttonGlow" style="--clr:#306d8a" (click)="editGasto(gasto.id)"><span class="spanGlow">EDITAR</span><i></i></a>
+                        <a class="buttonGlow" style="--clr:#9e0e0e" (click)="deleteGasto(gasto.id)"><span class="spanGlow">ELIMINAR</span><i></i></a>
                     </mat-card-actions>
                 </mat-card>
-                
+
             </mat-tab>
         </mat-tab-group>
     </div>
