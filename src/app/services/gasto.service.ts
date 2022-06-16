@@ -21,8 +21,8 @@ export class GastoService {
     return this.http.post(this.baseGastosURL.concat(`/add?tareaID=${tareaID}`), formData, {observe: 'response'});
   }
 
-  editGasto(newGasto: GastoOutputDTO, formData: FormData, gastoID: string) {
-    //return this.http.put(this.baseGastosURL.concat(``))
+  editGasto(formData: FormData, gastoID: string) {
+    return this.http.put(this.baseGastosURL.concat(`?gastoID=${gastoID}`), formData, {observe:'response'});
   }
 
 }

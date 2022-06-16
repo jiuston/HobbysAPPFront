@@ -27,6 +27,7 @@ import { ComentarioDialogComponent } from './comentario-dialog/comentario-dialog
 import { FileUploadMultipleComponent } from './file-upload-multiple/file-upload-multiple.component';
 import { GastoDialogComponent } from './gasto-dialog/gasto-dialog.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +56,7 @@ import { GastoDialogComponent } from './gasto-dialog/gasto-dialog.component';
     ReactiveFormsModule,
     HttpClientModule,
     SweetAlert2Module,
-    SocialLoginModule
+    SocialLoginModule,
   ],
   providers: [
     {

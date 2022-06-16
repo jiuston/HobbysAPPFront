@@ -43,6 +43,7 @@ export class TareaDetailComponent implements OnInit {
   editedTarea?: TareaOutputDTO;
   comentarios: ComentarioInputDTO[] = [];
   comentario? : ComentarioOutputDTO;
+  gasto?: GastoOutputDTO;
   isLoading: boolean = false;
 
   constructor(private tareaService: TareaService, public dialog: MatDialog, private router: Router, private comentarioService: ComentarioService, private gastoService: GastoService, private activatedRoute: ActivatedRoute) { }
@@ -102,8 +103,16 @@ export class TareaDetailComponent implements OnInit {
     })
   }
 
-  editGasto(id: string){
-
+  editGasto(gastoInput: GastoInputDTO){
+    this.gasto = new GastoOutputDTO();
+    this.gasto.concepto= gastoInput.concepto;
+    this.gasto.comentario = gastoInput.comentario;
+    this.gasto.cantidad = gastoInput.cantidad;
+    this.gasto.fechaGasto = gastoInput.fechaGasto;
+    const dialogRef = this.dialog.open(GastoDialogComponent, { width: '500px', data: { tareaID: this.tareaID, gastoOutputDTO: this.gasto, gastoID: gastoInput.id } })
+    dialogRef.afterClosed().subscribe(result => {
+      this.procesarRespuesta(result);
+    })
   }
 
   deleteGasto(id:string){

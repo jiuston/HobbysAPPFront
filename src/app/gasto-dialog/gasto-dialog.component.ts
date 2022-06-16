@@ -68,6 +68,7 @@ get fechaGasto() { return this.gastoForm.get('fechaGasto'); }
 
   addGasto(){
     this.newGasto = this.gastoForm.value;
+    console.log(this.newGasto)
     Swal.fire({
       position: 'center',
       title: this.title,
@@ -89,10 +90,9 @@ get fechaGasto() { return this.gastoForm.get('fechaGasto'); }
             this.formData.append("files", this.files[x], this.files[x].name);
           }
         }
-
         this.formData.append('gastoInputDTO', new Blob([JSON.stringify(this.newGasto)], { type: 'application/json' }));
         if (this.gastoID) {
-          //this.gastoService.editGasto(this.newGasto, this.formData,this.gastoID!).subscribe(data => this.closeDialogWithData(data))
+          this.gastoService.editGasto(this.formData,this.gastoID!).subscribe(data => this.closeDialogWithData(data))
         } else {
           this.gastoService.addGasto(this.tareaID!, this.formData).subscribe(data => this.closeDialogWithData(data));
         }
@@ -101,7 +101,9 @@ get fechaGasto() { return this.gastoForm.get('fechaGasto'); }
     });
   }
 
-  
+  closeDialog(): void {
+    this.dialogRef.close();
+  }
   
   closeDialogWithData(data: HttpResponse<any>): void {
     this.isLoading = false;
