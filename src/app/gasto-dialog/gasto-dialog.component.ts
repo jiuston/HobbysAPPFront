@@ -68,7 +68,8 @@ get fechaGasto() { return this.gastoForm.get('fechaGasto'); }
 
   addGasto(){
     this.newGasto = this.gastoForm.value;
-    console.log(this.newGasto)
+    let fecha = this.fechaGasto.value;
+    console.log(JSON.stringify(fecha))
     Swal.fire({
       position: 'center',
       title: this.title,
@@ -94,6 +95,7 @@ get fechaGasto() { return this.gastoForm.get('fechaGasto'); }
         if (this.gastoID) {
           this.gastoService.editGasto(this.formData,this.gastoID!).subscribe(data => this.closeDialogWithData(data))
         } else {
+          console.log(JSON.stringify(this.newGasto))
           this.gastoService.addGasto(this.tareaID!, this.formData).subscribe(data => this.closeDialogWithData(data));
         }
 

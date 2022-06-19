@@ -15,12 +15,25 @@ import { ComentarioInputDTO } from '../modelos/ComentarioInputDTO';
 import { ComentarioService } from '../services/comentario.service';
 import { GastoOutputDTO } from '../modelos/GastoOutputDTO';
 import { GastoDialogComponent } from '../gasto-dialog/gasto-dialog.component';
+import { MAT_DATE_FORMATS } from '@angular/material/core';
 
 export interface ComentarioDialogData {
   comentarioID: string;
   tareaID: string;
   comentarioOutputDTO: ComentarioOutputDTO;
 }
+
+export const DATE_FORMAT= {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD MMM YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 
 export interface GastoDialogData {
   gastoID: string;
@@ -32,7 +45,10 @@ export interface GastoDialogData {
 @Component({
   selector: 'app-tarea-detail',
   templateUrl: './tarea-detail.component.html',
-  styleUrls: ['./tarea-detail.component.css']
+  styleUrls: ['./tarea-detail.component.css'],
+  providers: [
+    { provide: MAT_DATE_FORMATS, useValue: DATE_FORMAT }
+  ]
 })
 export class TareaDetailComponent implements OnInit {
 
@@ -116,7 +132,26 @@ export class TareaDetailComponent implements OnInit {
   }
 
   deleteGasto(id:string){
-
+    Swal.fire({
+      title: '¿Borrar este gasto?',
+      text: "Si se borra este gasto tambien se eliminarán las imagenes asociadas.",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: 'warn',
+      focusCancel: true,
+      confirmButtonText: 'Sí, eliminar',
+      customClass: {
+        cancelButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-primary',
+        confirmButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-warn'
+      },
+      buttonsStyling: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.isLoading=true;
+        this.gastoService.deleteGastoByID(id).subscribe(data => this.procesarRespuesta(data));
+      }
+    })
   }
 
   editComentario(index: ComentarioInputDTO) {

@@ -8,7 +8,8 @@ import { GastoOutputDTO } from '../modelos/GastoOutputDTO';
 })
 export class GastoService {
 
-  baseGastosURL = "https://personalhobbys-app.herokuapp.com/gastos"
+
+  baseGastosURL = "http://localhost:8080/gastos"
 
 
   constructor(private http: HttpClient) { }
@@ -21,8 +22,12 @@ export class GastoService {
     return this.http.post(this.baseGastosURL.concat(`/add?tareaID=${tareaID}`), formData, {observe: 'response'});
   }
 
-  editGasto(formData: FormData, gastoID: string) {
+  editGasto(formData: FormData, gastoID: string) : Observable<HttpResponse<any>> {
     return this.http.put(this.baseGastosURL.concat(`?gastoID=${gastoID}`), formData, {observe:'response'});
+  }
+
+  deleteGastoByID(id: string) : Observable<HttpResponse<any>> {
+    return this.http.delete(this.baseGastosURL.concat(`?gastoID=${id}`), {observe : 'response' });
   }
 
 }

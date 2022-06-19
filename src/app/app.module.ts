@@ -26,6 +26,7 @@ import { LoadingProgressComponent } from './loading-progress/loading-progress.co
 import { ComentarioDialogComponent } from './comentario-dialog/comentario-dialog.component';
 import { FileUploadMultipleComponent } from './file-upload-multiple/file-upload-multiple.component';
 import { GastoDialogComponent } from './gasto-dialog/gasto-dialog.component';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 
 @NgModule({
@@ -63,8 +64,7 @@ import { GastoDialogComponent } from './gasto-dialog/gasto-dialog.component';
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
       multi: true
-    },
-
+    }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
