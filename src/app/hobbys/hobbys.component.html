@@ -9,6 +9,9 @@
             </button>
         </div>
     </div>
+    <div *ngIf="hobbys.length==0 && !isLoading">
+        <app-empty-tab></app-empty-tab>
+    </div>
     <div class="mat-primary container">
         <div class="hobbyDivContainer" *ngFor="let hobby of hobbys; let index=index">
             <!-- <mat-grid-list class="mat-grid-list" cols="2" rowHeight="3.5:1">-->

@@ -7,6 +7,21 @@ import { FileUploadMultipleComponent } from '../file-upload-multiple/file-upload
 import { GastoOutputDTO } from '../modelos/GastoOutputDTO';
 import { GastoService } from '../services/gasto.service';
 import { GastoDialogData } from '../tarea-detail/tarea-detail.component';
+import * as _moment from 'moment';
+import { default as _rollupMoment } from 'moment';
+
+const moment = _rollupMoment || _moment;
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'DD-MM-YYYY',
+    monthYearLabel: 'YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'YYYY',
+  },
+};
 
 @Component({
   selector: 'app-gasto-dialog',
@@ -22,17 +37,18 @@ export class GastoDialogComponent implements OnInit {
   title: string = '';
   buttonText: string = '';
   isLoading: boolean = false;
-  gastoID?:string;
+  gastoID?: string;
   files: any;
   formData?: FormData;
 
-  constructor(public dialogRef: MatDialogRef<GastoDialogComponent>,public gastoService: GastoService, @Inject(MAT_DIALOG_DATA) public data: GastoDialogData) { }
+  constructor(public dialogRef: MatDialogRef<GastoDialogComponent>, public gastoService: GastoService, @Inject(MAT_DIALOG_DATA) public data: GastoDialogData) { }
 
   ngOnInit(): void {
     this.clean();
     this.tareaID = this.data.tareaID;
     this.gastoID = this.data.gastoID;
     this.newGasto = this.data.gastoOutputDTO;
+    let fecha = new Date(this.newGasto.fechaGasto)
     if (this.gastoID) {
       this.h1 = `Editar gasto.`;
       this.buttonText = 'EDITAR';
@@ -42,23 +58,23 @@ export class GastoDialogComponent implements OnInit {
       this.h1 = 'Introducir nuevo gasto para la tarea seleccionada';
       this.buttonText = "Aceptar";
       this.title = `¿Introducir este gasto?`;
+    }
+
+    this.gastoForm = new FormGroup({
+      concepto: new FormControl(this.newGasto.concepto, [Validators.required]),
+      cantidad: new FormControl(this.newGasto.cantidad, [Validators.required, Validators.min(0.1)]),
+      comentario: new FormControl(this.newGasto.comentario),
+      fechaGasto: new FormControl(fecha ? fecha : moment())
+    });
+
   }
 
-this.gastoForm = new FormGroup({
-  concepto: new FormControl(this.newGasto.concepto, [Validators.required]),
-  cantidad: new FormControl(this.newGasto.cantidad, [Validators.required, Validators.min(0.1)]),
-  comentario: new FormControl(this.newGasto.comentario),
-  fechaGasto: new FormControl(this.newGasto.fechaGasto)
-});
+  get concepto() { return this.gastoForm.get('concepto'); }
+  get cantidad() { return this.gastoForm.get('cantidad'); }
+  get comentario() { return this.gastoForm.get('comentario'); }
+  get fechaGasto() { return this.gastoForm.get('fechaGasto'); }
 
-}
 
-get concepto() { return this.gastoForm.get('concepto'); }
-get cantidad() { return this.gastoForm.get('cantidad'); }
-get comentario() { return this.gastoForm.get('comentario'); }
-get fechaGasto() { return this.gastoForm.get('fechaGasto'); }
-
-  
   clean() {
     FileUploadMultipleComponent.files = null;
     this.tareaID = undefined;
@@ -66,9 +82,9 @@ get fechaGasto() { return this.gastoForm.get('fechaGasto'); }
     this.newGasto = new GastoOutputDTO();
   }
 
-  addGasto(){
+  addGasto() {
     this.newGasto = this.gastoForm.value;
-    console.log(this.newGasto)
+    console.log(this.newGasto.fechaGasto)
     Swal.fire({
       position: 'center',
       title: this.title,
@@ -92,7 +108,7 @@ get fechaGasto() { return this.gastoForm.get('fechaGasto'); }
         }
         this.formData.append('gastoInputDTO', new Blob([JSON.stringify(this.newGasto)], { type: 'application/json' }));
         if (this.gastoID) {
-          this.gastoService.editGasto(this.formData,this.gastoID!).subscribe(data => this.closeDialogWithData(data))
+          this.gastoService.editGasto(this.formData, this.gastoID!).subscribe(data => this.closeDialogWithData(data))
         } else {
           this.gastoService.addGasto(this.tareaID!, this.formData).subscribe(data => this.closeDialogWithData(data));
         }
@@ -104,7 +120,7 @@ get fechaGasto() { return this.gastoForm.get('fechaGasto'); }
   closeDialog(): void {
     this.dialogRef.close();
   }
-  
+
   closeDialogWithData(data: HttpResponse<any>): void {
     this.isLoading = false;
     this.dialogRef.close(data);

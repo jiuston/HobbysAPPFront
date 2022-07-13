@@ -1,4 +1,3 @@
-import { Observable, of } from 'rxjs';
 import { FileUploadComponent } from './../file-upload/file-upload.component';
 import { HobbyService } from './../services/hobby.service';
 import { HobbyOutputDTO } from './../modelos/HobbyOutputDTO';
@@ -6,7 +5,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { HttpResponse } from '@angular/common/http';
 import { DialogData } from '../hobbys/hobbys.component';
 
 @Component({

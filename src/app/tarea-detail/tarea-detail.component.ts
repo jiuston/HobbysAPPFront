@@ -42,7 +42,7 @@ export class TareaDetailComponent implements OnInit {
   gastos: GastoInputDTO[] = [];
   editedTarea?: TareaOutputDTO;
   comentarios: ComentarioInputDTO[] = [];
-  comentario? : ComentarioOutputDTO;
+  comentario?: ComentarioOutputDTO;
   gasto?: GastoOutputDTO;
   isLoading: boolean = false;
 
@@ -96,33 +96,51 @@ export class TareaDetailComponent implements OnInit {
     });
   }
 
-  addGasto(){
+  addGasto() {
     const dialogRef = this.dialog.open(GastoDialogComponent, { width: '500px', data: { tareaID: this.tareaID, gastoOutputDTO: new GastoOutputDTO() } })
     dialogRef.afterClosed().subscribe(result => {
       this.procesarRespuesta(result);
     })
   }
 
-  editGasto(gastoInput: GastoInputDTO){
+  editGasto(gastoInput: GastoInputDTO) {
     this.gasto = new GastoOutputDTO();
-    this.gasto.concepto= gastoInput.concepto;
+    this.gasto.concepto = gastoInput.concepto;
     this.gasto.comentario = gastoInput.comentario;
     this.gasto.cantidad = gastoInput.cantidad;
-    this.gasto.fechaGasto = gastoInput.fechaGasto;
+    this.gasto.fechaGasto = new Date(gastoInput.fechaGasto);
     const dialogRef = this.dialog.open(GastoDialogComponent, { width: '500px', data: { tareaID: this.tareaID, gastoOutputDTO: this.gasto, gastoID: gastoInput.id } })
     dialogRef.afterClosed().subscribe(result => {
       this.procesarRespuesta(result);
     })
   }
 
-  deleteGasto(id:string){
-
+  deleteGasto(id: string) {
+    Swal.fire({
+      title: '¿Borrar este gasto?',
+      text: "Si se borra este gasto tambien se eliminarán las imagenes asociadas.",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: 'warn',
+      focusCancel: true,
+      confirmButtonText: 'Sí, eliminar',
+      customClass: {
+        cancelButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-primary',
+        confirmButton: 'mat-focus-indicator SwalButtons mat-raised-button mat-button-base mat-warn'
+      },
+      buttonsStyling: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.gastoService.deleteGastoByID(id).subscribe(data => this.procesarRespuesta(data));
+      }
+    })
   }
 
   editComentario(index: ComentarioInputDTO) {
-    this.comentario=  new ComentarioOutputDTO();
+    this.comentario = new ComentarioOutputDTO();
     this.comentario.comentario = index.comentario;
-    const dialogRef = this.dialog.open(ComentarioDialogComponent, { width: '500px', data: { tareaID: this.tareaID, comentarioOutputDTO: this.comentario, comentarioID: index.id} })
+    const dialogRef = this.dialog.open(ComentarioDialogComponent, { width: '500px', data: { tareaID: this.tareaID, comentarioOutputDTO: this.comentario, comentarioID: index.id } })
     dialogRef.afterClosed().subscribe(result => {
       this.procesarRespuesta(result);
     })

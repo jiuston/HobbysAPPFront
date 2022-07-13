@@ -21,11 +21,13 @@ import { GastosComponent } from './gastos/gastos.component';
 import { HobbyDialogOverviewComponent } from './hobby-dialog-overview/hobby-dialog-overview.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { TareaDialogOverviewComponent } from './tarea-dialog-overview/tarea-dialog-overview.component';
-import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { LoadingProgressComponent } from './loading-progress/loading-progress.component';
 import { ComentarioDialogComponent } from './comentario-dialog/comentario-dialog.component';
 import { FileUploadMultipleComponent } from './file-upload-multiple/file-upload-multiple.component';
-import { GastoDialogComponent } from './gasto-dialog/gasto-dialog.component';
+import { GastoDialogComponent, MY_FORMATS } from './gasto-dialog/gasto-dialog.component';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
+import { EmptyTabComponent } from './empty-tab/empty-tab.component';
 
 
 @NgModule({
@@ -44,7 +46,8 @@ import { GastoDialogComponent } from './gasto-dialog/gasto-dialog.component';
     LoadingProgressComponent,
     ComentarioDialogComponent,
     FileUploadMultipleComponent,
-    GastoDialogComponent
+    GastoDialogComponent,
+    EmptyTabComponent
   ],
   imports: [
     BrowserModule,
@@ -55,8 +58,7 @@ import { GastoDialogComponent } from './gasto-dialog/gasto-dialog.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    SweetAlert2Module,
-    SocialLoginModule,
+    SweetAlert2Module
   ],
   providers: [
     {
@@ -64,6 +66,13 @@ import { GastoDialogComponent } from './gasto-dialog/gasto-dialog.component';
       useClass: InterceptorService,
       multi: true
     },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
 
   ],
   bootstrap: [AppComponent],
