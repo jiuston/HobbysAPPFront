@@ -21,8 +21,12 @@
     <mat-card class="rightListCard">
         <mat-card-title-group>
             <mat-card-title>Tareas de este hobby</mat-card-title>
+
         </mat-card-title-group>
         <mat-card-content>
+            <div *ngIf="tareas.length==0 && !isLoading">
+                <app-empty-tab></app-empty-tab>
+            </div>
             <mat-selection-list [multiple]="false">
                 <a *ngFor="let tarea of tareas" routerLink="/tareas/{{tarea.id}}/view">
                     <mat-list-option>
