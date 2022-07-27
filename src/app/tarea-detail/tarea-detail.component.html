@@ -38,7 +38,7 @@
                             {{comentario.comentario}}
                         </p>
                         <div *ngFor="let imagen of comentario.imagenesURL" class="imagenes">
-                            <img mat-card-image src={{imagen}} style="cursor: pointer; width: 175px; height: 175px; margin: 10px;" (click)="openIMG(imagen)">
+                            <img mat-card-md-image src={{imagen}} style="cursor: pointer; margin: 10px;" (click)="openIMG(imagen)">
                         </div>
                     </mat-card-content>
                     <mat-card-actions class="comentarioActionsContainer">
@@ -67,7 +67,7 @@
                             {{gasto.comentario}}
                         </p>
                         <div *ngFor="let imagen of gasto.imagenesURL" class="imagenes">
-                            <img mat-sm-card-image src={{imagen}} style="cursor: pointer;" (click)="openIMG(imagen)">
+                            <img class="mat-card-custom-image" src={{imagen}} style="cursor: pointer;" (click)="openIMG(imagen)">
                         </div>
 
                     </mat-card-content>

@@ -197,7 +197,10 @@ body {
     min-height: 175px;
 }
 
-.mat-tab-group {}
+.mat-card-custom-image {
+    width: 250px !important;
+    height: 250px !important;
+}
 
 .mat-tab-body {
     max-height: 700px !important;
