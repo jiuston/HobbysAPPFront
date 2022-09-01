@@ -1,0 +1,18 @@
+version: '2'
+services:
+  front:
+    container_name: hobbysfront
+    image: hobbysfront
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - 81
+    ports:
+      - "81:80"
+    networks:
+      - hobbys
+    restart: always
+networks:
+  hobbys:
+    external: true
