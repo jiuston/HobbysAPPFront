@@ -9,7 +9,7 @@ import { GastoOutputDTO } from '../modelos/GastoOutputDTO';
 export class GastoService {
 
 
-  baseGastosURL = "https://personalhobbys-app.herokuapp.com/gastos"
+  baseGastosURL = "http://localhost:8081/gastos"
 
 
   constructor(private http: HttpClient) { }

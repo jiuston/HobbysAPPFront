@@ -5,7 +5,7 @@ docker build -t personalhobbysapp .
 
 docker stop hobbys-front
 
-docker remove hobbys-front
+docker rm hobbys-front
 
 docker run -d --name hobbys-front -p 4500:80 personalhobbysapp
 

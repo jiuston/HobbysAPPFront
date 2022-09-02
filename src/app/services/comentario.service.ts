@@ -9,7 +9,7 @@ import { ComentarioOutputDTO } from '../modelos/ComentarioOutputDTO';
 export class ComentarioService {
 
 
-  baseComentariosURL = "https://personalhobbys-app.herokuapp.com/comentarios"
+  baseComentariosURL = "http://localhost:8081/comentarios"
 
 
   constructor(private http: HttpClient) { }

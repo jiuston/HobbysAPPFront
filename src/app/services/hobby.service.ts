@@ -12,7 +12,7 @@ export class HobbyService {
 
 
 
-  basehobbysURL = "https://personalhobbys-app.herokuapp.com/hobbys";
+  basehobbysURL = "http://localhost:8081/hobbys";
 
   constructor(private http: HttpClient) { }
 
