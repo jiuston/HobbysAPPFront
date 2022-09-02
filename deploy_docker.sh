@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
-echo "Deploying HobbysAppFront in Docker"
-echo "------Building Angular App------"
-npm ci
-rm -rf ./dist/personalhobbysapp
-npm run build
+echo "------Deploying Angular App for Hobbys------"
 
-echo "------Building image------"
-docker-compose build
+docker build -t personalhobbysapp .
 
-docker-compose down
+docker stop hobbys-front
 
-docker-compose up -d
+docker remove hobbys-front
 
-docker restart nginx
+docker run -d --name hobbys-front -p 4500:80 personalhobbysapp
+
+echo "------Deploy complete------"
+
+echo "check http://localhost:4500 on your browser"
