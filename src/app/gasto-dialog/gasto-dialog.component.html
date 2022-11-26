@@ -37,6 +37,8 @@
                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                     <mat-datepicker #picker2 color="primary"></mat-datepicker>
                 </mat-form-field>
+                <mat-label>Imagen</mat-label>
+                <file-upload requiredFileType="image/jpeg, image/png"></file-upload>
                 <div class="hobbyDetailContainer">
                     <button type="submit" mat-raised-button [disabled]="!gastoForm.valid" style="--clr:#306d8a" class="buttonGlow"><span class="spanGlow">{{buttonText}}</span><i></i></button>
                     <button type="reset" mat-raised-button color="warn" style="--clr:#9e0e0e" class="buttonGlow" (click)="closeDialog()"><span class="spanGlow">Cancelar</span><i></i></button>
