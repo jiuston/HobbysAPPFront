@@ -9,7 +9,7 @@ import { ComentarioOutputDTO } from '../modelos/ComentarioOutputDTO';
 export class ComentarioService {
 
 
-  baseComentariosURL = "http://hobbysApp:8080/comentarios"
+  baseComentariosURL = "http://localhost:8081/comentarios"
 
 
   constructor(private http: HttpClient) { }

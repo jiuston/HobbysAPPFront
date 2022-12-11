@@ -1,8 +1,5 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-
-/JiustonMachine_key.pem
-/deploy_azure.sh
 # Compiled output
 /dist
 /tmp

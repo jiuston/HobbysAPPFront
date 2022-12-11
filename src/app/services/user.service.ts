@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class UserService {
 
-  loginURL="http://hobbysApp:8080/login";
+  loginURL="http://localhost:8081/login";
 
   constructor(private http: HttpClient) { }
 
