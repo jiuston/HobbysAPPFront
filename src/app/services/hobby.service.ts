@@ -12,7 +12,7 @@ export class HobbyService {
 
 
 
-  basehobbysURL = "http://localhost:8081/hobbys";
+  basehobbysURL = "http://hobbysApp:8080/hobbys";
 
   constructor(private http: HttpClient) { }
 
