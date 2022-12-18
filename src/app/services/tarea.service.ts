@@ -7,7 +7,7 @@ import { TareaOutputDTO } from '../modelos/TareaOutputDTO';
   providedIn: 'root'
 })
 export class TareaService {
-  baseTareaURL = "http://localhost:8081/tareas"
+  baseTareaURL = "https://jiuston-hobbys.westeurope.cloudapp.azure.com:8081/tareas"
 
   constructor(private http: HttpClient) { }
 

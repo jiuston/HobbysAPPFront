@@ -9,7 +9,7 @@ import { GastoOutputDTO } from '../modelos/GastoOutputDTO';
 export class GastoService {
 
 
-  baseGastosURL = "http://localhost:8081/gastos"
+  baseGastosURL = "https://jiuston-hobbys.westeurope.cloudapp.azure.com:8081/gastos"
 
 
   constructor(private http: HttpClient) { }

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class UserService {
 
-  loginURL="http://localhost:8081/login";
+  loginURL="https://jiuston-hobbys.westeurope.cloudapp.azure.com:8081/login";
 
   constructor(private http: HttpClient) { }
 

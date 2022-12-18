@@ -9,7 +9,7 @@ import { ComentarioOutputDTO } from '../modelos/ComentarioOutputDTO';
 export class ComentarioService {
 
 
-  baseComentariosURL = "http://localhost:8081/comentarios"
+  baseComentariosURL = "https://jiuston-hobbys.westeurope.cloudapp.azure.com:8081/comentarios"
 
 
   constructor(private http: HttpClient) { }

@@ -12,7 +12,7 @@ export class HobbyService {
 
 
 
-  basehobbysURL = "http://localhost:8081/hobbys";
+  basehobbysURL = "https://jiuston-hobbys.westeurope.cloudapp.azure.com:8081/hobbys";
 
   constructor(private http: HttpClient) { }
 
