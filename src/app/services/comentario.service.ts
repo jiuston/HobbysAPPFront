@@ -16,19 +16,19 @@ export class ComentarioService {
   constructor(private http: HttpClient) { }
 
   getComentariosByTarea(tareaID: string): Observable<HttpResponse<any>> {
-    return this.http.get(this.localBaseComentariosURL.concat(`/tarea/${tareaID}`), { observe: 'response' });
+    return this.http.get(this.baseComentariosURL.concat(`/tarea/${tareaID}`), { observe: 'response' });
   }
 
   editComentario(newComentario: ComentarioOutputDTO, formData: FormData,comentarioID: string): Observable<HttpResponse<any>> {
-    return this.http.put(this.localBaseComentariosURL.concat(`?comentarioID=${comentarioID}&comentarioST=${newComentario.comentario}`), formData, { observe: 'response' });
+    return this.http.put(this.baseComentariosURL.concat(`?comentarioID=${comentarioID}&comentarioST=${newComentario.comentario}`), formData, { observe: 'response' });
   }
 
   addComentario(tareaID: string, formData: FormData): Observable<HttpResponse<any>> {
-    return this.http.post(this.localBaseComentariosURL.concat(`/add?tareaID=${tareaID}`), formData, { observe: 'response' });
+    return this.http.post(this.baseComentariosURL.concat(`/add?tareaID=${tareaID}`), formData, { observe: 'response' });
   }
 
   deleteComentarioByID(id: string): Observable<HttpResponse<any>> {
-   return this.http.delete(this.localBaseComentariosURL.concat(`?comentarioID=${id}`), {observe: `response`});
+   return this.http.delete(this.baseComentariosURL.concat(`?comentarioID=${id}`), {observe: `response`});
   }
 
 }
