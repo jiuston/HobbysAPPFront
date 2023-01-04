@@ -18,7 +18,7 @@ export class TareaService {
   }
 
   getTareasByState(estado: string) : Observable<HttpResponse<any>> {
-    return this.http.get(this.baseTareaURL.concat(`?estado=${estado}`), { observe: "response" });
+    return this.http.get(this.baseTareaURL.concat(`/${estado}`), { observe: "response" });
   }
 
   getTarea(id: string): Observable<HttpResponse<any>> {
