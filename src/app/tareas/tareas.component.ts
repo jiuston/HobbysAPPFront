@@ -11,7 +11,7 @@ import { HobbyService } from '../services/hobby.service';
 })
 export class TareasComponent implements OnInit {
 
-  estados = Object.values(Estado);
+  estados = Object.getOwnPropertyNames(Estado);
   isLoading :boolean = false;
   constructor() { }
   
