@@ -28,6 +28,7 @@ import { GastoDialogComponent, MY_FORMATS } from './gasto-dialog/gasto-dialog.co
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import { EmptyTabComponent } from './empty-tab/empty-tab.component';
+import { TrelloListComponent } from './trello-list/trello-list.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { EmptyTabComponent } from './empty-tab/empty-tab.component';
     ComentarioDialogComponent,
     FileUploadMultipleComponent,
     GastoDialogComponent,
-    EmptyTabComponent
+    EmptyTabComponent,
+    TrelloListComponent
   ],
   imports: [
     BrowserModule,

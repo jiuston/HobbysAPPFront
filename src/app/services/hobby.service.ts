@@ -13,27 +13,28 @@ export class HobbyService {
 
 
   basehobbysURL = "https://jiuston-hobbys.westeurope.cloudapp.azure.com:8081/hobbys";
+  localBasehobbysURL = "https://localhost:8081/hobbys";
 
   constructor(private http: HttpClient) { }
 
   getAllHobbys(): Observable<HttpResponse<any>> {
-    return this.http.get(this.basehobbysURL.concat("/all"), { observe: 'response' });
+    return this.http.get(this.localBasehobbysURL.concat("/all"), { observe: 'response' });
   }
 
   getHobby(id: string): Observable<HttpResponse<any>> {
-    return this.http.get(this.basehobbysURL.concat(`?id=${id}`), { observe: 'response' });
+    return this.http.get(this.localBasehobbysURL.concat(`?id=${id}`), { observe: 'response' });
   }
 
   addHobby(formData: FormData): Observable<HttpResponse<any>> {
-    return this.http.post(this.basehobbysURL.concat("/add"), formData, { observe: 'response' });
+    return this.http.post(this.localBasehobbysURL.concat("/add"), formData, { observe: 'response' });
   }
 
   deleteHobbyByID(hobbyID: string): Observable<HttpResponse<any>> {
-    return this.http.delete(this.basehobbysURL.concat(`/delete/${hobbyID}`), { observe: 'response' });
+    return this.http.delete(this.localBasehobbysURL.concat(`/delete/${hobbyID}`), { observe: 'response' });
   }
 
   editHobby(formData: FormData, hobbyID: string, deleteIMG: boolean): Observable<HttpResponse<any>> {
-    return this.http.put(this.basehobbysURL.concat(`/edit/${hobbyID}?deleteIMG=${deleteIMG}`), formData, { observe: 'response' });
+    return this.http.put(this.localBasehobbysURL.concat(`/edit/${hobbyID}?deleteIMG=${deleteIMG}`), formData, { observe: 'response' });
   }
 
 

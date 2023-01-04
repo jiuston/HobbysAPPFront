@@ -1,1 +1,5 @@
-<p>tareas works!</p>
+<div class="mat-primary container" style="border: 1px black solid">
+    <div *ngFor="let state of estados" style="border: 1px black solid">
+        <app-trello-list estado={{state}}></app-trello-list>
+    </div>
+</div>
